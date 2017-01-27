@@ -42,10 +42,14 @@ Conditional_expr::Conditional_expr(expr& expression1, expr& expression2, expr& e
     e3 = &expression3;
 }
 
+Integer_expr::Integer_expr(int integer)
+{
+    val = integer;
+}
+
 int Not_expr::weight() { return 1 + expr::weight(e); }
 int Not_expr::height() { return 1 + expr::height(e); }
 bool Not_expr::eval() { return !(e->eval()); }
-
 
 int Or_expr::weight() { return 1 + expr::weight(e1) + expr::weight(e2); }
 int Or_expr::height() { return 1 + std::max(expr::height(e1), expr::height(e2)); }

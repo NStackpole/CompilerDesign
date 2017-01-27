@@ -11,6 +11,17 @@ struct expr
     int weight(expr*);
 };
 
+struct type
+{
+    virtual ~type() = default;
+};
+
+struct bool_type : type
+{};
+
+struct integer_type : type
+{};
+
 struct Bool_expr : expr
 {
     Bool_expr(bool);
@@ -65,3 +76,9 @@ struct Conditional_expr : expr
 
 };
 
+struct Integer_expr : expr
+{
+    int val;
+    Integer_expr() = default;
+    Integer_expr(int);
+};
