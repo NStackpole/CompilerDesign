@@ -35,6 +35,7 @@ struct Or_expr : expr
     expr* e1;
     expr* e2;
     Or_expr() = default;
+    Or_expr(expr&, expr&);
     int weight();
     int height();
     bool eval();
@@ -45,6 +46,7 @@ struct And_expr : expr
     expr* e1;
     expr* e2;
     And_expr() = default;
+    And_expr(expr&, expr&);
     int weight();
     int height();
     bool eval();
@@ -53,6 +55,7 @@ struct And_expr : expr
 struct Conditional_expr : expr
 {
     Conditional_expr() = default;
+    Conditional_expr(expr&, expr&, expr&);
     expr* e1;
     expr* e2;
     expr* e3;
