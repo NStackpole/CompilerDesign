@@ -12,8 +12,9 @@ int main()
     bool_test.value = true;
     std::cout<<bool_test.eval()<<"\n";
 
-    //Not_expr not_test = Not_expr(bool_test);
-    //std::cout<<not_test.e->eval()<<"\n";
+    Not_expr not_test = Not_expr();
+    not_test.e = &bool_test;
+    std::cout<<not_test.eval()<<"\n";
 
 
     return 1;

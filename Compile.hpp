@@ -24,6 +24,7 @@ struct Not_expr : expr
 {
     expr* e;
     Not_expr(expr*);
+    Not_expr() = default;
     int weight();
     int height();
     bool eval();
