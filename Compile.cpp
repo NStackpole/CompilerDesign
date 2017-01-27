@@ -35,6 +35,13 @@ And_expr::And_expr(expr& expression1, expr& expression2)
     e2 = &expression2;
 }
 
+Conditional_expr::Conditional_expr(expr& expression1, expr& expression2, expr& expression3)
+{
+    e1 = &expression1;
+    e2 = &expression2;
+    e3 = &expression3;
+}
+
 int Not_expr::weight() { return 1 + expr::weight(e); }
 int Not_expr::height() { return 1 + expr::height(e); }
 bool Not_expr::eval() { return !(e->eval()); }
@@ -47,3 +54,13 @@ bool Or_expr::eval() { return (e1->eval() | e2->eval()); }
 int And_expr::weight() { return 1 + expr::weight(e1) + expr::weight(e2); }
 int And_expr::height() { return 1 + std::max(expr::height(e1), expr::height(e2)); }
 bool And_expr::eval() { return (e1->eval() & e2->eval()); }
+
+int Conditional_expr::weight() { return 1 + expr::weight(e1) + expr::weight(e2); }
+int Conditional_expr::height() { return 1 + std::max(expr::height(e1), expr::height(e2)); }
+bool Conditional_expr::eval() 
+{ 
+    if(e1->eval())
+        return e2->eval();
+    else
+        return e3->eval();
+}

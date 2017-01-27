@@ -59,6 +59,9 @@ struct Conditional_expr : expr
     expr* e1;
     expr* e2;
     expr* e3;
+    int weight();
+    int height();
+    bool eval();
 
 };
 
