@@ -3,7 +3,7 @@
 
 struct expr
 {
-    virtual ~expr(){};
+    virtual ~expr() = default;
     virtual int weight() = 0;
     virtual bool eval() = 0;
     virtual int height() = 0;
@@ -13,6 +13,7 @@ struct expr
 
 struct Bool_expr : expr
 {
+    Bool_expr(bool);
     bool value;
     virtual int weight();
     virtual int height();
@@ -22,6 +23,7 @@ struct Bool_expr : expr
 struct Not_expr : expr
 {
     expr* e;
+    Not_expr(expr*);
     int weight();
     int height();
     bool eval();

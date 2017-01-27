@@ -5,6 +5,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11")
 
 add_executable(compiler-test
 	test.cpp
+  Compile.cpp
 	)
 
 set(files Compile.cpp test.cpp)
