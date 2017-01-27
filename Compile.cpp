@@ -18,9 +18,9 @@ Bool_expr::Bool_expr(bool v)
     value = v;
 }
 
-Not_expr::Not_expr(expr* expression)
+Not_expr::Not_expr(expr& expression)
 {
-    e = expression;
+    e = &expression;
 }
 
 
