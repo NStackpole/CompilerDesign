@@ -25,19 +25,23 @@ struct integer_type : type
 {};
 
 //Boolean expression
-struct Bool_expr : expr
+class Bool_expr : public expr
 {
-    Bool_expr(bool);
     bool value;
+    
+    public:
+    Bool_expr(bool);
     virtual int weight();
     virtual int height();
     int eval ();
 };
 
 //Not expression
-struct Not_expr : expr
+class Not_expr : public expr
 {
     expr* e;
+    
+    public:
     Not_expr(expr&);
     Not_expr() = default;
     int weight();
@@ -46,10 +50,12 @@ struct Not_expr : expr
 };
 
 //Or expression
-struct Or_expr : expr
+class Or_expr : public expr
 {
     expr* e1;
     expr* e2;
+
+    public:
     Or_expr() = default;
     Or_expr(expr&, expr&);
     int weight();
@@ -57,11 +63,26 @@ struct Or_expr : expr
     int eval();
 };
 
-//And expression
-struct And_expr : expr
+class Xor_expr : public expr
 {
     expr* e1;
     expr* e2;
+
+    public:
+    Xor_expr() = default;
+    Xor_expr(expr&, expr&);
+    int weight();
+    int height();
+    int eval();
+};
+
+//And expression
+class And_expr : public expr
+{
+    expr* e1;
+    expr* e2;
+
+    public:
     And_expr() = default;
     And_expr(expr&, expr&);
     int weight();
@@ -70,24 +91,67 @@ struct And_expr : expr
 };
 
 //Conditional expression
-struct Conditional_expr : expr
+class Conditional_expr : public expr
 {
-    Conditional_expr() = default;
-    Conditional_expr(expr&, expr&, expr&);
     expr* e1;
     expr* e2;
     expr* e3;
+
+    public:
+    Conditional_expr() = default;
+    Conditional_expr(expr&, expr&, expr&);
     int weight();
     int height();
     int eval();
 
 };
 
-struct Integer_expr : expr
+class Integer_expr : public expr
 {
     int val;
+
+    public:
     Integer_expr() = default;
     Integer_expr(int);
+    int weight();
+    int height();
+    int eval();
+};
+
+class LessThan_expr : public expr
+{
+    expr* e1;
+    expr* e2;
+
+    public:
+    LessThan_expr() = default;
+    LessThan_expr(expr&, expr&);
+    int weight();
+    int height();
+    int eval();
+};
+
+class MoreThan_expr : public expr
+{
+    expr* e1;
+    expr* e2;
+
+    public:
+    MoreThan_expr() = default;
+    MoreThan_expr(expr&, expr&);
+    int weight();
+    int height();
+    int eval();
+};
+
+class EqualTo_expr : public expr
+{
+    expr* e1;
+    expr* e2;
+
+    public:
+    EqualTo_expr() = default;
+    EqualTo_expr(expr&, expr&);
     int weight();
     int height();
     int eval();
