@@ -6,7 +6,7 @@ struct expr
 {
     virtual ~expr() = default;
     virtual int weight() = 0; 
-    virtual bool eval() = 0; //Evaluates the expression and returns a bool
+    virtual int eval() = 0; //Evaluates the expression and returns a bool
     virtual int height() = 0; 
     int height(expr*); //Finds the height of the tree of the expression
     int weight(expr*); //Finds the weight of the tree for the expression (basically counts the nodes in the tree)
@@ -31,7 +31,7 @@ struct Bool_expr : expr
     bool value;
     virtual int weight();
     virtual int height();
-    bool eval ();
+    int eval ();
 };
 
 //Not expression
@@ -42,7 +42,7 @@ struct Not_expr : expr
     Not_expr() = default;
     int weight();
     int height();
-    bool eval();
+    int eval();
 };
 
 //Or expression
@@ -54,7 +54,7 @@ struct Or_expr : expr
     Or_expr(expr&, expr&);
     int weight();
     int height();
-    bool eval();
+    int eval();
 };
 
 //And expression
@@ -66,7 +66,7 @@ struct And_expr : expr
     And_expr(expr&, expr&);
     int weight();
     int height();
-    bool eval();
+    int eval();
 };
 
 //Conditional expression
@@ -79,7 +79,7 @@ struct Conditional_expr : expr
     expr* e3;
     int weight();
     int height();
-    bool eval();
+    int eval();
 
 };
 
@@ -88,4 +88,7 @@ struct Integer_expr : expr
     int val;
     Integer_expr() = default;
     Integer_expr(int);
+    int weight();
+    int height();
+    int eval();
 };
