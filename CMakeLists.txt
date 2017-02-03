@@ -5,10 +5,11 @@ set(CMAKE_CXX_FLAGS "-std=c++11")
 
 add_executable(compiler-test
 	test.cpp
-  Compile.cpp
+  AST.cpp
+  eval.cpp
 	)
 
-set(files Compile.cpp test.cpp)
+set(files AST.cpp test.cpp eval.cpp)
 
 add_custom_target(printout
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
