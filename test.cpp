@@ -38,6 +38,5 @@ int main()
     std::cout<<"Equal test 1 (10,11):"<<eval(&equal_test_1)<<"\n";
     std::cout<<"Equal test 2 (10,10):"<<eval(&equal_test_2)<<"\n";
  
-
     return 1;
 }

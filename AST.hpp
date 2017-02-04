@@ -40,7 +40,7 @@ struct type
     virtual void accept(Visitor&) { }
 };
 
-
+//expr Visitor class
 struct expr::Visitor
 {
     virtual void visit(Bool_expr*) = 0;
@@ -55,6 +55,7 @@ struct expr::Visitor
     virtual void visit(EqualTo_expr*) = 0;
 };
 
+//type Visitor class
 struct type::Visitor
 {
     
@@ -182,6 +183,7 @@ class Conditional_expr : public expr
 
 };
 
+//Integer value
 class Integer_expr : public expr
 {
     
@@ -198,6 +200,7 @@ class Integer_expr : public expr
     int get_val();
 };
 
+//Less Than (<) expression
 class LessThan_expr : public expr
 {
     
@@ -216,6 +219,7 @@ class LessThan_expr : public expr
     expr* get_e2();
 };
 
+//More Than (>) expression
 class MoreThan_expr : public expr
 {
     
@@ -234,6 +238,7 @@ class MoreThan_expr : public expr
     expr* get_e2();
 };
 
+//Equality (==) expression
 class EqualTo_expr : public expr
 {
     

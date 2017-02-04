@@ -2,9 +2,6 @@
 
 #include "AST.hpp"
 
-
-
-
 //Constructors
 Bool_expr::Bool_expr(bool v) : value(v){}
 
@@ -21,7 +18,6 @@ EqualTo_expr::EqualTo_expr(expr* expression1, expr* expression2) : e1(expression
 LessThan_expr::LessThan_expr(expr* expression1, expr* expression2) : e1(expression1), e2(expression2){}
 
 MoreThan_expr::MoreThan_expr(expr* expression1, expr* expression2) : e1(expression1), e2(expression2){}
-
 
 Conditional_expr::Conditional_expr(expr* expression1, expr* expression2, expr* expression3) : e1(expression1), e2(expression2), e3(expression3){}
 
