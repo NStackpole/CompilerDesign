@@ -7,9 +7,10 @@ add_executable(compiler-test
 	test.cpp
   AST.cpp
   eval.cpp
+  type.cpp
 	)
 
-set(files AST.cpp test.cpp eval.cpp)
+set(files AST.cpp test.cpp eval.cpp type.cpp)
 
 add_custom_target(printout
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
