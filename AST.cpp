@@ -86,6 +86,42 @@ Conditional_expr::Conditional_expr(expr *expression1, expr *expression2, expr *e
 
 Integer_expr::Integer_expr(int integer) : val(integer) {}
 
+Addition_expr::Addition_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+{
+    Context cxt;
+    assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
+}
+
+Subtraction_expr::Subtraction_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+{
+    Context cxt;
+    assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
+}
+
+Division_expr::Division_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+{
+    Context cxt;
+    assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
+}
+
+Modulus_expr::Modulus_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+{
+    Context cxt;
+    assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
+}
+
+Negation_expr::Negation_expr(expr *expression) : e(expression)
+{
+    Context cxt;
+    assert(check(cxt, expression) == &cxt.integer);
+}
+
+Multiplication_expr::Multiplication_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+{
+    Context cxt;
+    assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
+}
+
 //Base expression functions
 int expr::weight(expr *e)
 {
@@ -199,3 +235,44 @@ int MoreThanOrEqualTo_expr::height() { return 1 + std::max(expr::height(e1), exp
 expr *MoreThanOrEqualTo_expr::get_e1() const { return e1; }
 expr *MoreThanOrEqualTo_expr::get_e2() const { return e2; }
 void MoreThanOrEqualTo_expr::accept(Visitor &v) { return v.visit(this); }
+
+//Addition_expr function definitios
+int Addition_expr::weight() { return 1 + expr::weight(e1) + expr::weight(e2); }
+int Addition_expr::height() { return 1 + std::max(expr::height(e1), expr::height(e2)); }
+expr *Addition_expr::get_e1() const { return e1; }
+expr *Addition_expr::get_e2() const { return e2; }
+void Addition_expr::accept(Visitor &v) { return v.visit(this); }
+
+//Subtraction_expr function definitios
+int Subtraction_expr::weight() { return 1 + expr::weight(e1) + expr::weight(e2); }
+int Subtraction_expr::height() { return 1 + std::max(expr::height(e1), expr::height(e2)); }
+expr *Subtraction_expr::get_e1() const { return e1; }
+expr *Subtraction_expr::get_e2() const { return e2; }
+void Subtraction_expr::accept(Visitor &v) { return v.visit(this); }
+
+//Division_expr function definitios
+int Division_expr::weight() { return 1 + expr::weight(e1) + expr::weight(e2); }
+int Division_expr::height() { return 1 + std::max(expr::height(e1), expr::height(e2)); }
+expr *Division_expr::get_e1() const { return e1; }
+expr *Division_expr::get_e2() const { return e2; }
+void Division_expr::accept(Visitor &v) { return v.visit(this); }
+
+//Modulus_expr function definitios
+int Modulus_expr::weight() { return 1 + expr::weight(e1) + expr::weight(e2); }
+int Modulus_expr::height() { return 1 + std::max(expr::height(e1), expr::height(e2)); }
+expr *Modulus_expr::get_e1() const { return e1; }
+expr *Modulus_expr::get_e2() const { return e2; }
+void Modulus_expr::accept(Visitor &v) { return v.visit(this); }
+
+//Negation_expr function definitios
+int Negation_expr::weight() { return 1 + expr::weight(e); }
+int Negation_expr::height() { return 1 + expr::height(e); }
+expr *Negation_expr::get_e() const { return e; }
+void Negation_expr::accept(Visitor &v) { return v.visit(this); }
+
+//Multiplication_expr function definitios
+int Multiplication_expr::weight() { return 1 + expr::weight(e1) + expr::weight(e2); }
+int Multiplication_expr::height() { return 1 + std::max(expr::height(e1), expr::height(e2)); }
+expr *Multiplication_expr::get_e1() const { return e1; }
+expr *Multiplication_expr::get_e2() const { return e2; }
+void Multiplication_expr::accept(Visitor &v) { return v.visit(this); }

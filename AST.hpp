@@ -24,6 +24,12 @@ class EqualTo_expr;
 class NotEqualTo_expr;
 class LessThanOrEqualTo_expr;
 class MoreThanOrEqualTo_expr;
+class Addition_expr;
+class Subtraction_expr;
+class Division_expr;
+class Modulus_expr;
+class Negation_expr;
+class Multiplication_expr;
 
 //Base expression class
 struct expr
@@ -55,6 +61,12 @@ struct expr::Visitor
     virtual void visit(NotEqualTo_expr *) = 0;
     virtual void visit(LessThanOrEqualTo_expr *) = 0;
     virtual void visit(MoreThanOrEqualTo_expr *) = 0;
+    virtual void visit(Addition_expr *) = 0;
+    virtual void visit(Subtraction_expr *) = 0;
+    virtual void visit(Multiplication_expr *) = 0;
+    virtual void visit(Division_expr *) = 0;
+    virtual void visit(Modulus_expr *) = 0;
+    virtual void visit(Negation_expr *) = 0;
 };
 
 //Boolean expression
@@ -118,7 +130,6 @@ class OrElse_expr : public expr
     expr *get_e1() const;
     expr *get_e2() const;
 };
-
 
 //Xor expression
 class Xor_expr : public expr
@@ -299,6 +310,94 @@ class MoreThanOrEqualTo_expr : public expr
   public:
     MoreThanOrEqualTo_expr() = default;
     MoreThanOrEqualTo_expr(expr *, expr *);
+    int weight();
+    int height();
+    void accept(Visitor &);
+    expr *get_e1() const;
+    expr *get_e2() const;
+};
+
+class Addition_expr : public expr
+{
+    expr *e1;
+    expr *e2;
+
+  public:
+    Addition_expr() = default;
+    Addition_expr(expr *, expr *);
+    int weight();
+    int height();
+    void accept(Visitor &);
+    expr *get_e1() const;
+    expr *get_e2() const;
+};
+
+class Subtraction_expr : public expr
+{
+    expr *e1;
+    expr *e2;
+
+  public:
+    Subtraction_expr() = default;
+    Subtraction_expr(expr *, expr *);
+    int weight();
+    int height();
+    void accept(Visitor &);
+    expr *get_e1() const;
+    expr *get_e2() const;
+};
+
+class Division_expr : public expr
+{
+    expr *e1;
+    expr *e2;
+
+  public:
+    Division_expr() = default;
+    Division_expr(expr *, expr *);
+    int weight();
+    int height();
+    void accept(Visitor &);
+    expr *get_e1() const;
+    expr *get_e2() const;
+};
+
+class Modulus_expr : public expr
+{
+    expr *e1;
+    expr *e2;
+
+  public:
+    Modulus_expr() = default;
+    Modulus_expr(expr *, expr *);
+    int weight();
+    int height();
+    void accept(Visitor &);
+    expr *get_e1() const;
+    expr *get_e2() const;
+};
+
+class Negation_expr : public expr
+{
+    expr *e;
+
+  public:
+    Negation_expr() = default;
+    Negation_expr(expr *);
+    int weight();
+    int height();
+    void accept(Visitor &);
+    expr *get_e() const;
+};
+
+class Multiplication_expr : public expr
+{
+    expr *e1;
+    expr *e2;
+
+  public:
+    Multiplication_expr() = default;
+    Multiplication_expr(expr *, expr *);
     int weight();
     int height();
     void accept(Visitor &);

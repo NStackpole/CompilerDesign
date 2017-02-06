@@ -89,6 +89,41 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e2()) == &cxt.integer);
             r = &cxt.boolean;
         }
+        void visit(Addition_expr *e)
+        {
+            assert(check(cxt, e->get_e1()) == &cxt.integer);
+            assert(check(cxt, e->get_e2()) == &cxt.integer);
+            r = &cxt.integer;
+        }
+        void visit(Subtraction_expr *e)
+        {
+            assert(check(cxt, e->get_e1()) == &cxt.integer);
+            assert(check(cxt, e->get_e2()) == &cxt.integer);
+            r = &cxt.integer;
+        }
+        void visit(Multiplication_expr *e)
+        {
+            assert(check(cxt, e->get_e1()) == &cxt.integer);
+            assert(check(cxt, e->get_e2()) == &cxt.integer);
+            r = &cxt.integer;
+        }
+        void visit(Division_expr *e)
+        {
+            assert(check(cxt, e->get_e1()) == &cxt.integer);
+            assert(check(cxt, e->get_e2()) == &cxt.integer);
+            r = &cxt.integer;
+        }
+        void visit(Modulus_expr *e)
+        {
+            assert(check(cxt, e->get_e1()) == &cxt.integer);
+            assert(check(cxt, e->get_e2()) == &cxt.integer);
+            r = &cxt.integer;
+        }
+        void visit(Negation_expr *e)
+        {
+            assert(check(cxt, e->get_e()) == &cxt.integer);
+            r = &cxt.integer;
+        }
     };
     V vis(cxt);
     e->accept(vis);
