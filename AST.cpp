@@ -54,6 +54,18 @@ MoreThan_expr::MoreThan_expr(expr *expression1, expr *expression2) : e1(expressi
     assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
 }
 
+LessThanOrEqualTo_expr::LessThanOrEqualTo_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+{
+    Context cxt;
+    assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
+}
+
+MoreThanOrEqualTo_expr::MoreThanOrEqualTo_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+{
+    Context cxt;
+    assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
+}
+
 Conditional_expr::Conditional_expr(expr *expression1, expr *expression2, expr *expression3) : e1(expression1), e2(expression2), e3(expression3)
 {
     Context cxt;
@@ -147,3 +159,17 @@ int NotEqualTo_expr::height() { return 1 + std::max(expr::height(e1), expr::heig
 expr *NotEqualTo_expr::get_e1() const { return e1; }
 expr *NotEqualTo_expr::get_e2() const { return e2; }
 void NotEqualTo_expr::accept(Visitor &v) { return v.visit(this); }
+
+//LessThanOrEqualTo_expr function definitions
+int LessThanOrEqualTo_expr::weight() { return 1 + expr::weight(e1) + expr::weight(e2); }
+int LessThanOrEqualTo_expr::height() { return 1 + std::max(expr::height(e1), expr::height(e2)); }
+expr *LessThanOrEqualTo_expr::get_e1() const { return e1; }
+expr *LessThanOrEqualTo_expr::get_e2() const { return e2; }
+void LessThanOrEqualTo_expr::accept(Visitor &v) { return v.visit(this); }
+
+//MoreThanOrEqualTo_expr function definitions
+int MoreThanOrEqualTo_expr::weight() { return 1 + expr::weight(e1) + expr::weight(e2); }
+int MoreThanOrEqualTo_expr::height() { return 1 + std::max(expr::height(e1), expr::height(e2)); }
+expr *MoreThanOrEqualTo_expr::get_e1() const { return e1; }
+expr *MoreThanOrEqualTo_expr::get_e2() const { return e2; }
+void MoreThanOrEqualTo_expr::accept(Visitor &v) { return v.visit(this); }

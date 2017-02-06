@@ -27,6 +27,8 @@ int eval(expr *e)
         void visit(MoreThan_expr *e) { r = eval(e->get_e1()) > eval(e->get_e2()); }
         void visit(EqualTo_expr *e) { r = eval(e->get_e1()) == eval(e->get_e2()); }
         void visit(NotEqualTo_expr *e) { r = eval(e->get_e1()) != eval(e->get_e2()); }
+        void visit(LessThanOrEqualTo_expr *e) { r = eval(e->get_e1()) <= eval(e->get_e2()); }
+        void visit(MoreThanOrEqualTo_expr *e) { r = eval(e->get_e1()) >= eval(e->get_e2()); }
     };
     V vis;
     e->accept(vis);

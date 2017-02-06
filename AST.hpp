@@ -20,6 +20,8 @@ class LessThan_expr;
 class MoreThan_expr;
 class EqualTo_expr;
 class NotEqualTo_expr;
+class LessThanOrEqualTo_expr;
+class MoreThanOrEqualTo_expr;
 
 //Base expression class
 struct expr
@@ -47,6 +49,8 @@ struct expr::Visitor
     virtual void visit(MoreThan_expr *) = 0;
     virtual void visit(EqualTo_expr *) = 0;
     virtual void visit(NotEqualTo_expr *) = 0;
+    virtual void visit(LessThanOrEqualTo_expr *) = 0;
+    virtual void visit(MoreThanOrEqualTo_expr *) = 0;
 };
 
 //Boolean expression
@@ -213,19 +217,54 @@ class EqualTo_expr : public expr
     expr *get_e2() const;
 };
 
+//Not equal to (!=) expression
 class NotEqualTo_expr : public expr
 {
-    expr* e1;
-    expr* e2;
+    expr *e1;
+    expr *e2;
 
-    public:
+  public:
     NotEqualTo_expr() = default;
-    NotEqualTo_expr(expr*, expr*);
+    NotEqualTo_expr(expr *, expr *);
     int weight();
     int height();
     void accept(Visitor &);
-    expr* get_e1() const;
-    expr* get_e2() const;
+    expr *get_e1() const;
+    expr *get_e2() const;
+};
+
+//Less Than or equal to (<=) expression
+class LessThanOrEqualTo_expr : public expr
+{
+
+    expr *e1;
+    expr *e2;
+
+  public:
+    LessThanOrEqualTo_expr() = default;
+    LessThanOrEqualTo_expr(expr *, expr *);
+    int weight();
+    int height();
+    void accept(Visitor &);
+    expr *get_e1() const;
+    expr *get_e2() const;
+};
+
+//More Than or equal to (>=) expression
+class MoreThanOrEqualTo_expr : public expr
+{
+
+    expr *e1;
+    expr *e2;
+
+  public:
+    MoreThanOrEqualTo_expr() = default;
+    MoreThanOrEqualTo_expr(expr *, expr *);
+    int weight();
+    int height();
+    void accept(Visitor &);
+    expr *get_e1() const;
+    expr *get_e2() const;
 };
 
 #endif

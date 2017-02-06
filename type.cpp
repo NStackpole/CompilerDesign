@@ -64,6 +64,18 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e1()) == check(cxt, e->get_e2()));
             r = &cxt.boolean;
         }
+        void visit(LessThanOrEqualTo_expr *e)
+        {
+            assert(check(cxt, e->get_e1()) == &cxt.integer);
+            assert(check(cxt, e->get_e2()) == &cxt.integer);
+            r = &cxt.boolean;
+        }
+        void visit(MoreThanOrEqualTo_expr *e)
+        {
+            assert(check(cxt, e->get_e1()) == &cxt.integer);
+            assert(check(cxt, e->get_e2()) == &cxt.integer);
+            r = &cxt.boolean;
+        }
     };
     V vis(cxt);
     e->accept(vis);

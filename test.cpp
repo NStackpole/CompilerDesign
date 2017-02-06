@@ -53,10 +53,24 @@ int main()
     MoreThan_expr morethan_test1 = MoreThan_expr(&int_test_1, &int_test_2);
     MoreThan_expr morethan_test2 = MoreThan_expr(&int_test_2, &int_test_1);
 
+    LessThanOrEqualTo_expr lessthan_equal_test1 = LessThanOrEqualTo_expr(&int_test_1, &int_test_2);
+    LessThanOrEqualTo_expr lessthan_equal_test2 = LessThanOrEqualTo_expr(&int_test_2, &int_test_1);
+    LessThanOrEqualTo_expr lessthan_equal_test3 = LessThanOrEqualTo_expr(&int_test_3, &int_test_1);
+    MoreThanOrEqualTo_expr morethan_equal_test1 = MoreThanOrEqualTo_expr(&int_test_1, &int_test_2);
+    MoreThanOrEqualTo_expr morethan_equal_test2 = MoreThanOrEqualTo_expr(&int_test_2, &int_test_1);
+    MoreThanOrEqualTo_expr morethan_equal_test3 = MoreThanOrEqualTo_expr(&int_test_3, &int_test_1);
+
     std::cout << "lessthan_test1(10,11): " << eval(&lessthan_test1) << "\n";
     std::cout << "lessthan_test1(11,10): " << eval(&lessthan_test2) << "\n";
     std::cout << "morethan_test1(10,11): " << eval(&morethan_test1) << "\n";
     std::cout << "morethan_test2(11,10): " << eval(&morethan_test2) << "\n";
+
+    std::cout << "lessthan_equal_test1(10,11): " << eval(&lessthan_equal_test1) << "\n";
+    std::cout << "lessthan_equal_test1(11,10): " << eval(&lessthan_equal_test2) << "\n";
+    std::cout << "lessthan_equal_test1(10,10): " << eval(&lessthan_equal_test3) << "\n";
+    std::cout << "morethan_equal_test1(10,11): " << eval(&morethan_equal_test1) << "\n";
+    std::cout << "morethan_equal_test2(11,10): " << eval(&morethan_equal_test2) << "\n";
+    std::cout << "morethan_equal_test3(10,10): " << eval(&morethan_equal_test3) << "\n";
 
     //Type checking tests
     //Replace an integer variable or boolean variable below with a boolean variable or integer variable respectively to make the program abort
