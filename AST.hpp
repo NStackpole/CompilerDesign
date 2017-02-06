@@ -19,6 +19,7 @@ class Integer_expr;
 class LessThan_expr;
 class MoreThan_expr;
 class EqualTo_expr;
+class NotEqualTo_expr;
 
 //Base expression class
 struct expr
@@ -45,6 +46,7 @@ struct expr::Visitor
     virtual void visit(LessThan_expr *) = 0;
     virtual void visit(MoreThan_expr *) = 0;
     virtual void visit(EqualTo_expr *) = 0;
+    virtual void visit(NotEqualTo_expr *) = 0;
 };
 
 //Boolean expression
@@ -71,9 +73,8 @@ class Not_expr : public expr
     Not_expr() = default;
     int weight();
     int height();
-    int eval();
     void accept(Visitor &);
-    expr *get_e();
+    expr *get_e() const;
 };
 
 //Or expression
@@ -88,10 +89,9 @@ class Or_expr : public expr
     Or_expr(expr *, expr *);
     int weight();
     int height();
-    int eval();
     void accept(Visitor &);
-    expr *get_e1();
-    expr *get_e2();
+    expr *get_e1() const;
+    expr *get_e2() const;
 };
 
 //Xor expression
@@ -106,10 +106,9 @@ class Xor_expr : public expr
     Xor_expr(expr *, expr *);
     int weight();
     int height();
-    int eval();
     void accept(Visitor &);
-    expr *get_e1();
-    expr *get_e2();
+    expr *get_e1() const;
+    expr *get_e2() const;
 };
 
 //And expression
@@ -124,10 +123,9 @@ class And_expr : public expr
     And_expr(expr *, expr *);
     int weight();
     int height();
-    int eval();
     void accept(Visitor &);
-    expr *get_e1();
-    expr *get_e2();
+    expr *get_e1() const;
+    expr *get_e2() const;
 };
 
 //Conditional expression
@@ -143,11 +141,10 @@ class Conditional_expr : public expr
     Conditional_expr(expr *, expr *, expr *);
     int weight();
     int height();
-    int eval();
     void accept(Visitor &);
-    expr *get_e1();
-    expr *get_e2();
-    expr *get_e3();
+    expr *get_e1() const;
+    expr *get_e2() const;
+    expr *get_e3() const;
 };
 
 //Integer value
@@ -161,7 +158,6 @@ class Integer_expr : public expr
     Integer_expr(int);
     int weight();
     int height();
-    int eval();
     void accept(Visitor &);
     int get_val();
 };
@@ -178,10 +174,9 @@ class LessThan_expr : public expr
     LessThan_expr(expr *, expr *);
     int weight();
     int height();
-    int eval();
     void accept(Visitor &);
-    expr *get_e1();
-    expr *get_e2();
+    expr *get_e1() const;
+    expr *get_e2() const;
 };
 
 //More Than (>) expression
@@ -196,10 +191,9 @@ class MoreThan_expr : public expr
     MoreThan_expr(expr *, expr *);
     int weight();
     int height();
-    int eval();
     void accept(Visitor &);
-    expr *get_e1();
-    expr *get_e2();
+    expr *get_e1() const;
+    expr *get_e2() const;
 };
 
 //Equality (==) expression
@@ -214,10 +208,24 @@ class EqualTo_expr : public expr
     EqualTo_expr(expr *, expr *);
     int weight();
     int height();
-    int eval();
     void accept(Visitor &);
-    expr *get_e1();
-    expr *get_e2();
+    expr *get_e1() const;
+    expr *get_e2() const;
+};
+
+class NotEqualTo_expr : public expr
+{
+    expr* e1;
+    expr* e2;
+
+    public:
+    NotEqualTo_expr() = default;
+    NotEqualTo_expr(expr*, expr*);
+    int weight();
+    int height();
+    void accept(Visitor &);
+    expr* get_e1() const;
+    expr* get_e2() const;
 };
 
 #endif

@@ -40,9 +40,13 @@ int main()
 
     EqualTo_expr equal_test_1 = EqualTo_expr(&int_test_1, &int_test_2);
     EqualTo_expr equal_test_2 = EqualTo_expr(&int_test_1, &int_test_3);
+    NotEqualTo_expr not_equal_test_1 = NotEqualTo_expr(&int_test_1, &int_test_2);
+    NotEqualTo_expr not_equal_test_2 = NotEqualTo_expr(&int_test_1, &int_test_3);
 
     std::cout << "Equal test 1 (10,11):" << eval(&equal_test_1) << "\n";
     std::cout << "Equal test 2 (10,10):" << eval(&equal_test_2) << "\n";
+    std::cout << "Not Equal test 1 (10,11):" << eval(&not_equal_test_1) << "\n";
+    std::cout << "Not Equal test 2 (10,10):" << eval(&not_equal_test_2) << "\n";
 
     LessThan_expr lessthan_test1 = LessThan_expr(&int_test_1, &int_test_2);
     LessThan_expr lessthan_test2 = LessThan_expr(&int_test_2, &int_test_1);

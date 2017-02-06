@@ -59,6 +59,11 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e1()) == check(cxt, e->get_e2()));
             r = &cxt.boolean;
         }
+        void visit(NotEqualTo_expr *e)
+        {
+            assert(check(cxt, e->get_e1()) == check(cxt, e->get_e2()));
+            r = &cxt.boolean;
+        }
     };
     V vis(cxt);
     e->accept(vis);
