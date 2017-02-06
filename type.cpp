@@ -19,7 +19,20 @@ type *check(Context &cxt, expr *e)
 
             r = &cxt.boolean;
         }
+        void visit(AndThen_expr *e)
+        {
+            assert(check(cxt, e->get_e1()) == &cxt.boolean);
+            assert(check(cxt, e->get_e2()) == &cxt.boolean);
+
+            r = &cxt.boolean;
+        }
         void visit(Or_expr *e)
+        {
+            assert(check(cxt, e->get_e1()) == &cxt.boolean);
+            assert(check(cxt, e->get_e2()) == &cxt.boolean);
+            r = &cxt.boolean;
+        }
+        void visit(OrElse_expr *e)
         {
             assert(check(cxt, e->get_e1()) == &cxt.boolean);
             assert(check(cxt, e->get_e2()) == &cxt.boolean);

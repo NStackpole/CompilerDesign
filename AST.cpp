@@ -18,6 +18,12 @@ Or_expr::Or_expr(expr *expression1, expr *expression2) : e1(expression1), e2(exp
     assert(check(cxt, expression1) == &cxt.boolean && check(cxt, expression2) == &cxt.boolean);
 }
 
+OrElse_expr::OrElse_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+{
+    Context cxt;
+    assert(check(cxt, expression1) == &cxt.boolean && check(cxt, expression2) == &cxt.boolean);
+}
+
 Xor_expr::Xor_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
 {
     Context cxt;
@@ -25,6 +31,12 @@ Xor_expr::Xor_expr(expr *expression1, expr *expression2) : e1(expression1), e2(e
 }
 
 And_expr::And_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+{
+    Context cxt;
+    assert(check(cxt, expression1) == &cxt.boolean && check(cxt, expression2) == &cxt.boolean);
+}
+
+AndThen_expr::AndThen_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
 {
     Context cxt;
     assert(check(cxt, expression1) == &cxt.boolean && check(cxt, expression2) == &cxt.boolean);
@@ -104,6 +116,13 @@ expr *Or_expr::get_e1() const { return e1; }
 expr *Or_expr::get_e2() const { return e2; }
 void Or_expr::accept(Visitor &v) { return v.visit(this); }
 
+//OrElse_expr function definitions
+int OrElse_expr::weight() { return 1 + expr::weight(e1) + expr::weight(e2); }
+int OrElse_expr::height() { return 1 + std::max(expr::height(e1), expr::height(e2)); }
+expr *OrElse_expr::get_e1() const { return e1; }
+expr *OrElse_expr::get_e2() const { return e2; }
+void OrElse_expr::accept(Visitor &v) { return v.visit(this); }
+
 //Xor_expr function definitions
 int Xor_expr::weight() { return 1 + expr::weight(e1) + expr::weight(e2); }
 int Xor_expr::height() { return 1 + std::max(expr::height(e1), expr::height(e2)); }
@@ -117,6 +136,13 @@ int And_expr::height() { return 1 + std::max(expr::height(e1), expr::height(e2))
 expr *And_expr::get_e1() const { return e1; }
 expr *And_expr::get_e2() const { return e2; }
 void And_expr::accept(Visitor &v) { return v.visit(this); }
+
+//AndThen_expr function definitions
+int AndThen_expr::weight() { return 1 + expr::weight(e1) + expr::weight(e2); }
+int AndThen_expr::height() { return 1 + std::max(expr::height(e1), expr::height(e2)); }
+expr *AndThen_expr::get_e1() const { return e1; }
+expr *AndThen_expr::get_e2() const { return e2; }
+void AndThen_expr::accept(Visitor &v) { return v.visit(this); }
 
 //Conditional_expr function definitions
 int Conditional_expr::weight() { return 1 + expr::weight(e1) + expr::weight(e2); }

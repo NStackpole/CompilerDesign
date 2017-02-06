@@ -12,6 +12,8 @@ int eval(expr *e)
         void visit(Bool_expr *e) { r = e->get_value(); }
         void visit(And_expr *e) { r = eval(e->get_e1()) & eval(e->get_e2()); }
         void visit(Or_expr *e) { r = eval(e->get_e1()) | eval(e->get_e2()); }
+        void visit(AndThen_expr *e) { r = eval(e->get_e1()) && eval(e->get_e2()); }
+        void visit(OrElse_expr *e) { r = eval(e->get_e1()) || eval(e->get_e2()); }
         void visit(Not_expr *e) { r = !eval(e->get_e()); }
         void visit(Xor_expr *e) { r = (eval(e->get_e1()) != eval(e->get_e2())); }
         void visit(Conditional_expr *e)

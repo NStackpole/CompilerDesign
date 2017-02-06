@@ -13,6 +13,8 @@ class Bool_expr;
 class Not_expr;
 class And_expr;
 class Or_expr;
+class AndThen_expr;
+class OrElse_expr;
 class Xor_expr;
 class Conditional_expr;
 class Integer_expr;
@@ -41,6 +43,8 @@ struct expr::Visitor
     virtual void visit(Bool_expr *) = 0;
     virtual void visit(And_expr *) = 0;
     virtual void visit(Or_expr *) = 0;
+    virtual void visit(AndThen_expr *) = 0;
+    virtual void visit(OrElse_expr *) = 0;
     virtual void visit(Not_expr *) = 0;
     virtual void visit(Xor_expr *) = 0;
     virtual void visit(Conditional_expr *) = 0;
@@ -67,7 +71,7 @@ class Bool_expr : public expr
     bool get_value();
 };
 
-//Not expression
+//Not (!e) expression
 class Not_expr : public expr
 {
     expr *e;
@@ -81,7 +85,7 @@ class Not_expr : public expr
     expr *get_e() const;
 };
 
-//Or expression
+//Or (|) expression
 class Or_expr : public expr
 {
 
@@ -97,6 +101,24 @@ class Or_expr : public expr
     expr *get_e1() const;
     expr *get_e2() const;
 };
+
+//OrElse (||) expression
+class OrElse_expr : public expr
+{
+
+    expr *e1;
+    expr *e2;
+
+  public:
+    OrElse_expr() = default;
+    OrElse_expr(expr *, expr *);
+    int weight();
+    int height();
+    void accept(Visitor &);
+    expr *get_e1() const;
+    expr *get_e2() const;
+};
+
 
 //Xor expression
 class Xor_expr : public expr
@@ -125,6 +147,23 @@ class And_expr : public expr
   public:
     And_expr() = default;
     And_expr(expr *, expr *);
+    int weight();
+    int height();
+    void accept(Visitor &);
+    expr *get_e1() const;
+    expr *get_e2() const;
+};
+
+//AndThen expression
+class AndThen_expr : public expr
+{
+
+    expr *e1;
+    expr *e2;
+
+  public:
+    AndThen_expr() = default;
+    AndThen_expr(expr *, expr *);
     int weight();
     int height();
     void accept(Visitor &);

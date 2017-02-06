@@ -18,13 +18,17 @@ int main()
     Not_expr not_test = Not_expr(&bool_test);
     std::cout << "not_test:" << eval(&not_test) << "\n";
 
-    //Test And_expr constructor and eval
+    //Test And_expr and AndThen_exprconstructor and eval
     And_expr and_test = And_expr(&bool_test, &not_test);
     std::cout << "and_test:" << eval(&and_test) << "\n";
+    AndThen_expr and_then_test = AndThen_expr(&bool_test, &not_test);
+    std::cout << "and_then_test:" << eval(&and_then_test) << "\n";
 
-    //Test Or_expr constructor and eval
+    //Test Or_expr and OrElse_expr constructor and eval
     Or_expr or_test = Or_expr(&bool_test, &not_test);
     std::cout << "or_test:" << eval(&or_test) << "\n";
+    OrElse_expr or_else_test = OrElse_expr(&bool_test, &not_test);
+    std::cout << "or_else_test:" << eval(&or_else_test) << "\n";
 
     //Test Conditional_expr constructor and eval
     Conditional_expr conditional_test = Conditional_expr(&bool_test, &and_test, &or_test);
