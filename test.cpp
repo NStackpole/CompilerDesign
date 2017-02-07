@@ -99,18 +99,35 @@ int main()
     //Type checking tests
     //Replace an integer variable or boolean variable below with a boolean variable or integer variable respectively to make the program abort
     And_expr and_type_check_test = And_expr(&not_test, &and_test);
+    AndThen_expr and_then_check_test = AndThen_expr(&not_test, &and_test);
 
     Not_expr not_type_check_test = Not_expr(&not_test);
 
     Or_expr or_type_check_test = Or_expr(&not_test, &and_test);
+    OrElse_expr or_else_type_check_test = OrElse_expr(&not_test, &and_test);
 
     Conditional_expr conditional_check_test = Conditional_expr(&not_test, &or_test, &and_test);
 
     LessThan_expr lessthan_check_test = LessThan_expr(&int_test_1, &int_test_2);
+    LessThanOrEqualTo_expr lessthan_equal_check_test = LessThanOrEqualTo_expr(&int_test_1, &int_test_2);
 
     MoreThan_expr morethan_check_test = MoreThan_expr(&int_test_1, &int_test_2);
+    MoreThanOrEqualTo_expr morethan_equal_check_test = MoreThanOrEqualTo_expr(&int_test_1, &int_test_2);
 
     EqualTo_expr equals_type_check_test = EqualTo_expr(&not_test, &not_test);
+    NotEqualTo_expr not_equals_type_check_test = NotEqualTo_expr(&not_test, &not_test);
+
+    Negation_expr negate_check_test = Negation_expr(&int_test_1);
+
+    Addition_expr addition_check_test = Addition_expr(&int_test_1, &int_test_2);
+
+    Subtraction_expr subtraction_check_test = Subtraction_expr(&int_test_1, &int_test_2);
+
+    Multiplication_expr multiplication_check_test = Multiplication_expr(&int_test_1, &int_test_2);
+
+    Division_expr division_check_test = Division_expr(&int_test_4, &int_test_1);
+
+    Modulus_expr modulus_check_test = Modulus_expr(&int_test_4, &int_test_1);
 
     return 1;
 }

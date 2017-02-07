@@ -7,4 +7,3 @@ This language currently:
 * Checks the types of expressions to make sure the expression is well formed. If it is not the program will abort.
 
 TODO:
-* Test type checking on all expressions
