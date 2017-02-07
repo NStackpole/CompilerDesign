@@ -12,35 +12,35 @@ int main()
 
     //Test Bool_expr constructor, eval
     Bool_expr bool_test = Bool_expr(true);
-    std::cout << "bool_test:" << eval(&bool_test) << "\n\n";
+    std::cout << "Bool constructor test (true) :" << eval(&bool_test) << "\n\n";
 
     //Tests Not_expr constructor eval
     Not_expr not_test = Not_expr(&bool_test);
-    std::cout << "not_test:" << eval(&not_test) << "\n\n";
+    std::cout << "Not (!) constructor test (true) :" << eval(&not_test) << "\n\n";
 
     //Test And_expr and AndThen_exprconstructor and eval
     And_expr and_test = And_expr(&bool_test, &not_test);
-    std::cout << "and_test:" << eval(&and_test) << "\n";
+    std::cout << "And test (true, !true):" << eval(&and_test) << "\n";
     AndThen_expr and_then_test = AndThen_expr(&bool_test, &not_test);
-    std::cout << "and_then_test:" << eval(&and_then_test) << "\n\n";
+    std::cout << "AndThen test (true, !true):" << eval(&and_then_test) << "\n\n";
 
     //Test Or_expr and OrElse_expr constructor and eval
     Or_expr or_test = Or_expr(&bool_test, &not_test);
-    std::cout << "or_test:" << eval(&or_test) << "\n\n";
+    std::cout << "Or test (true, !true) :" << eval(&or_test) << "\n\n";
     OrElse_expr or_else_test = OrElse_expr(&bool_test, &not_test);
-    std::cout << "or_else_test:" << eval(&or_else_test) << "\n\n";
+    std::cout << "OrElse test (true, !true) :" << eval(&or_else_test) << "\n\n";
 
     //Test Conditional_expr constructor and eval
     Conditional_expr conditional_test = Conditional_expr(&bool_test, &and_test, &or_test);
-    std::cout << "conditional_test:" << eval(&conditional_test) << "\n\n";
+    std::cout << "Conditional Test (true, false, true):" << eval(&conditional_test) << "\n\n";
 
     //EqualsTo, More than, less than, and Integer constructor and eval tests
     Integer_expr int_test_1 = Integer_expr(10);
     Integer_expr int_test_2 = Integer_expr(11);
     Integer_expr int_test_3 = Integer_expr(10);
-    std::cout << "Integer 1 test:" << eval(&int_test_1) << "\n";
-    std::cout << "Integer 2 test:" << eval(&int_test_2) << "\n";
-    std::cout << "Integer 3 test:" << eval(&int_test_3) << "\n\n";
+    std::cout << "Integer constructor test 1 (10):" << eval(&int_test_1) << "\n";
+    std::cout << "Integer constrcutor test 2 (11):" << eval(&int_test_2) << "\n";
+    std::cout << "Integer constructor test 3 (10):" << eval(&int_test_3) << "\n\n";
 
     EqualTo_expr equal_test_1 = EqualTo_expr(&int_test_1, &int_test_2);
     EqualTo_expr equal_test_2 = EqualTo_expr(&int_test_1, &int_test_3);
@@ -64,37 +64,37 @@ int main()
     MoreThanOrEqualTo_expr morethan_equal_test2 = MoreThanOrEqualTo_expr(&int_test_2, &int_test_1);
     MoreThanOrEqualTo_expr morethan_equal_test3 = MoreThanOrEqualTo_expr(&int_test_3, &int_test_1);
 
-    std::cout << "lessthan_test1(10,11): " << eval(&lessthan_test1) << "\n";
-    std::cout << "lessthan_test1(11,10): " << eval(&lessthan_test2) << "\n";
-    std::cout << "morethan_test1(10,11): " << eval(&morethan_test1) << "\n";
-    std::cout << "morethan_test2(11,10): " << eval(&morethan_test2) << "\n";
+    std::cout << "Less than test (10,11): " << eval(&lessthan_test1) << "\n";
+    std::cout << "Less than test (11,10): " << eval(&lessthan_test2) << "\n";
+    std::cout << "More than test (10,11): " << eval(&morethan_test1) << "\n";
+    std::cout << "More than test (11,10): " << eval(&morethan_test2) << "\n";
 
-    std::cout << "lessthan_equal_test1(10,11): " << eval(&lessthan_equal_test1) << "\n";
-    std::cout << "lessthan_equal_test1(11,10): " << eval(&lessthan_equal_test2) << "\n";
-    std::cout << "lessthan_equal_test1(10,10): " << eval(&lessthan_equal_test3) << "\n";
-    std::cout << "morethan_equal_test1(10,11): " << eval(&morethan_equal_test1) << "\n";
-    std::cout << "morethan_equal_test2(11,10): " << eval(&morethan_equal_test2) << "\n";
-    std::cout << "morethan_equal_test3(10,10): " << eval(&morethan_equal_test3) << "\n\n";
+    std::cout << "Less than or equals test (10,11): " << eval(&lessthan_equal_test1) << "\n";
+    std::cout << "Less than or equals test (11,10): " << eval(&lessthan_equal_test2) << "\n";
+    std::cout << "Less than or equals test (10,10): " << eval(&lessthan_equal_test3) << "\n";
+    std::cout << "More than or equals test (10,11): " << eval(&morethan_equal_test1) << "\n";
+    std::cout << "More than or equals test (11,10): " << eval(&morethan_equal_test2) << "\n";
+    std::cout << "More than or equals test (10,10): " << eval(&morethan_equal_test3) << "\n\n";
 
     //Arithmetic tests
     Negation_expr negate_test = Negation_expr(&int_test_1);
-    std::cout << "negate_test (10): " << eval(&negate_test) << "\n\n";
+    std::cout << "Negation test (10): " << eval(&negate_test) << "\n\n";
 
     Addition_expr addition_test = Addition_expr(&int_test_1, &int_test_2);
-    std::cout << "addition_test (10,11): " << eval(&addition_test) << "\n\n";
+    std::cout << "Addition test (10,11): " << eval(&addition_test) << "\n\n";
 
     Subtraction_expr subtraction_test = Subtraction_expr(&int_test_1, &int_test_2);
-    std::cout << "subtraction_test (10,11): " << eval(&subtraction_test) << "\n\n";
+    std::cout << "Subtraction test (10,11): " << eval(&subtraction_test) << "\n\n";
 
     Multiplication_expr multiplication_test = Multiplication_expr(&int_test_1, &int_test_2);
-    std::cout << "multiplication_test (10,11): " << eval(&multiplication_test) << "\n\n";
+    std::cout << "Multiplication test (10,11): " << eval(&multiplication_test) << "\n\n";
 
     Integer_expr int_test_4 = Integer_expr(20);
     Division_expr division_test = Division_expr(&int_test_4, &int_test_1);
-    std::cout << "division_test (20,10): " << eval(&division_test) << "\n\n";
+    std::cout << "Division test (20,10): " << eval(&division_test) << "\n\n";
 
     Modulus_expr modulus_test = Modulus_expr(&int_test_4, &int_test_1);
-    std::cout << "modulus_test (20,10): " << eval(&modulus_test) << "\n\n";
+    std::cout << "Modulus test (20,10): " << eval(&modulus_test) << "\n\n";
 
     //Type checking tests
     //Replace an integer variable or boolean variable below with a boolean variable or integer variable respectively to make the program abort
