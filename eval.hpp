@@ -4,7 +4,7 @@
 #define EVAL_HPP
 
 #include "AST.hpp"
-#include "type.hpp"
+#include "type_check.hpp"
 
 int eval(expr *);
 

@@ -4,7 +4,7 @@
 
 #include "AST.hpp"
 #include "eval.hpp"
-#include "type.hpp"
+#include "type_check.hpp"
 
 int main()
 {
@@ -31,7 +31,7 @@ int main()
     std::cout << "OrElse test (true, !true) :" << eval(&or_else_test) << "\n\n";
 
     //Test Conditional_expr constructor and eval
-    Conditional_expr conditional_test = Conditional_expr(&bool_test, &and_test, &or_test);
+    Conditional_expr conditional_test = Conditional_expr(&not_test, &and_test, &or_test);
     std::cout << "Conditional Test (true, false, true):" << eval(&conditional_test) << "\n\n";
 
     //EqualsTo, More than, less than, and Integer constructor and eval tests

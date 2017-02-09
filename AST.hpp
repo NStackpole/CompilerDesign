@@ -8,6 +8,7 @@
 
 struct bool_type;
 struct integer_type;
+struct type;
 
 class Bool_expr;
 class Not_expr;
@@ -35,12 +36,34 @@ class Multiplication_expr;
 struct expr
 {
     struct Visitor;
+    type *expr_type = nullptr;
     virtual ~expr() = default;
     virtual int height() = 0;
     virtual int weight() = 0;
     virtual void accept(Visitor &) = 0;
     int height(expr *);
     int weight(expr *);
+};
+
+struct type
+{
+    struct Visitor;
+    virtual ~type() = default;
+    virtual void accept(Visitor &) {}
+};
+
+struct bool_type : type
+{
+};
+
+struct integer_type : type
+{
+};
+
+struct Context
+{
+    bool_type boolean;
+    integer_type integer;
 };
 
 //expr Visitor class
@@ -76,6 +99,7 @@ class Bool_expr : public expr
     bool value;
 
   public:
+    type *expr_type;
     Bool_expr(bool);
     virtual int weight();
     virtual int height();
@@ -89,6 +113,7 @@ class Not_expr : public expr
     expr *e;
 
   public:
+    type *expr_type;
     Not_expr(expr *);
     Not_expr() = default;
     int weight();
@@ -105,6 +130,7 @@ class Or_expr : public expr
     expr *e2;
 
   public:
+    type *expr_type;
     Or_expr() = default;
     Or_expr(expr *, expr *);
     int weight();
@@ -122,6 +148,7 @@ class OrElse_expr : public expr
     expr *e2;
 
   public:
+    type *expr_type;
     OrElse_expr() = default;
     OrElse_expr(expr *, expr *);
     int weight();
@@ -139,6 +166,7 @@ class Xor_expr : public expr
     expr *e2;
 
   public:
+    type *expr_type;
     Xor_expr() = default;
     Xor_expr(expr *, expr *);
     int weight();
@@ -156,6 +184,7 @@ class And_expr : public expr
     expr *e2;
 
   public:
+    type *expr_type;
     And_expr() = default;
     And_expr(expr *, expr *);
     int weight();
@@ -173,6 +202,7 @@ class AndThen_expr : public expr
     expr *e2;
 
   public:
+    type *expr_type;
     AndThen_expr() = default;
     AndThen_expr(expr *, expr *);
     int weight();
@@ -191,6 +221,7 @@ class Conditional_expr : public expr
     expr *e3;
 
   public:
+    type *expr_type;
     Conditional_expr() = default;
     Conditional_expr(expr *, expr *, expr *);
     int weight();
@@ -208,6 +239,7 @@ class Integer_expr : public expr
     int val;
 
   public:
+    type *expr_type;
     Integer_expr() = default;
     Integer_expr(int);
     int weight();
@@ -224,6 +256,7 @@ class LessThan_expr : public expr
     expr *e2;
 
   public:
+    type *expr_type;
     LessThan_expr() = default;
     LessThan_expr(expr *, expr *);
     int weight();
@@ -241,6 +274,7 @@ class MoreThan_expr : public expr
     expr *e2;
 
   public:
+    type *expr_type;
     MoreThan_expr() = default;
     MoreThan_expr(expr *, expr *);
     int weight();
@@ -258,6 +292,7 @@ class EqualTo_expr : public expr
     expr *e2;
 
   public:
+    type *expr_type;
     EqualTo_expr() = default;
     EqualTo_expr(expr *, expr *);
     int weight();
@@ -274,6 +309,7 @@ class NotEqualTo_expr : public expr
     expr *e2;
 
   public:
+    type *expr_type;
     NotEqualTo_expr() = default;
     NotEqualTo_expr(expr *, expr *);
     int weight();
@@ -291,6 +327,7 @@ class LessThanOrEqualTo_expr : public expr
     expr *e2;
 
   public:
+    type *expr_type;
     LessThanOrEqualTo_expr() = default;
     LessThanOrEqualTo_expr(expr *, expr *);
     int weight();
@@ -308,6 +345,7 @@ class MoreThanOrEqualTo_expr : public expr
     expr *e2;
 
   public:
+    type *expr_type;
     MoreThanOrEqualTo_expr() = default;
     MoreThanOrEqualTo_expr(expr *, expr *);
     int weight();
@@ -323,6 +361,7 @@ class Addition_expr : public expr
     expr *e2;
 
   public:
+    type *expr_type;
     Addition_expr() = default;
     Addition_expr(expr *, expr *);
     int weight();
@@ -338,6 +377,7 @@ class Subtraction_expr : public expr
     expr *e2;
 
   public:
+    type *expr_type;
     Subtraction_expr() = default;
     Subtraction_expr(expr *, expr *);
     int weight();
@@ -353,6 +393,7 @@ class Division_expr : public expr
     expr *e2;
 
   public:
+    type *expr_type;
     Division_expr() = default;
     Division_expr(expr *, expr *);
     int weight();
@@ -368,6 +409,7 @@ class Modulus_expr : public expr
     expr *e2;
 
   public:
+    type *expr_type;
     Modulus_expr() = default;
     Modulus_expr(expr *, expr *);
     int weight();
@@ -382,6 +424,7 @@ class Negation_expr : public expr
     expr *e;
 
   public:
+    type *expr_type;
     Negation_expr() = default;
     Negation_expr(expr *);
     int weight();
@@ -396,6 +439,7 @@ class Multiplication_expr : public expr
     expr *e2;
 
   public:
+    type *expr_type;
     Multiplication_expr() = default;
     Multiplication_expr(expr *, expr *);
     int weight();

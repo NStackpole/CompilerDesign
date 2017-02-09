@@ -1,124 +1,107 @@
 //Nathan Stackpole
 
 #include "AST.hpp"
-#include "type.hpp"
+#include "type_check.hpp"
+
+Context cxt;
 
 //Constructors
-Bool_expr::Bool_expr(bool v) : value(v) {}
+Bool_expr::Bool_expr(bool v) : value(v), expr_type(&cxt.boolean) {}
 
-Not_expr::Not_expr(expr *expression) : e(expression)
+Not_expr::Not_expr(expr *expression) : e(expression), expr_type(&cxt.boolean)
 {
-    Context cxt;
     assert(check(cxt, expression) == &cxt.boolean);
 }
 
-Or_expr::Or_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+Or_expr::Or_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2), expr_type(&cxt.boolean)
 {
-    Context cxt;
     assert(check(cxt, expression1) == &cxt.boolean && check(cxt, expression2) == &cxt.boolean);
 }
 
-OrElse_expr::OrElse_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+OrElse_expr::OrElse_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2), expr_type(&cxt.boolean)
 {
-    Context cxt;
     assert(check(cxt, expression1) == &cxt.boolean && check(cxt, expression2) == &cxt.boolean);
 }
 
-Xor_expr::Xor_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+Xor_expr::Xor_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2), expr_type(&cxt.boolean)
 {
-    Context cxt;
     assert(check(cxt, expression1) == &cxt.boolean && check(cxt, expression2) == &cxt.boolean);
 }
 
-And_expr::And_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+And_expr::And_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2), expr_type(&cxt.boolean)
 {
-    Context cxt;
     assert(check(cxt, expression1) == &cxt.boolean && check(cxt, expression2) == &cxt.boolean);
 }
 
-AndThen_expr::AndThen_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+AndThen_expr::AndThen_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2), expr_type(&cxt.boolean)
 {
-    Context cxt;
     assert(check(cxt, expression1) == &cxt.boolean && check(cxt, expression2) == &cxt.boolean);
 }
 
-EqualTo_expr::EqualTo_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+EqualTo_expr::EqualTo_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2), expr_type(&cxt.boolean)
 {
-    Context cxt;
     assert(check(cxt, expression1) == check(cxt, expression2));
 }
 
-NotEqualTo_expr::NotEqualTo_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+NotEqualTo_expr::NotEqualTo_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2), expr_type(&cxt.boolean)
 {
-    Context cxt;
     assert(check(cxt, expression1) == check(cxt, expression2));
 }
 
-LessThan_expr::LessThan_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+LessThan_expr::LessThan_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2), expr_type(&cxt.boolean)
 {
-    Context cxt;
     assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
 }
 
-MoreThan_expr::MoreThan_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+MoreThan_expr::MoreThan_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2), expr_type(&cxt.boolean)
 {
-    Context cxt;
     assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
 }
 
-LessThanOrEqualTo_expr::LessThanOrEqualTo_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+LessThanOrEqualTo_expr::LessThanOrEqualTo_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2), expr_type(&cxt.boolean)
 {
-    Context cxt;
     assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
 }
 
-MoreThanOrEqualTo_expr::MoreThanOrEqualTo_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+MoreThanOrEqualTo_expr::MoreThanOrEqualTo_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2), expr_type(&cxt.boolean)
 {
-    Context cxt;
     assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
 }
 
-Conditional_expr::Conditional_expr(expr *expression1, expr *expression2, expr *expression3) : e1(expression1), e2(expression2), e3(expression3)
+Conditional_expr::Conditional_expr(expr *expression1, expr *expression2, expr *expression3) : e1(expression1), e2(expression2), e3(expression3), expr_type(&cxt.boolean)
 {
-    Context cxt;
     assert(check(cxt, expression1) == &cxt.boolean && check(cxt, expression2) == &cxt.boolean && check(cxt, expression3) == &cxt.boolean);
 }
 
-Integer_expr::Integer_expr(int integer) : val(integer) {}
+Integer_expr::Integer_expr(int integer) : val(integer), expr_type(&cxt.integer) {}
 
-Addition_expr::Addition_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+Addition_expr::Addition_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2), expr_type(&cxt.integer)
 {
-    Context cxt;
     assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
 }
 
-Subtraction_expr::Subtraction_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+Subtraction_expr::Subtraction_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2), expr_type(&cxt.integer)
 {
-    Context cxt;
     assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
 }
 
-Division_expr::Division_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+Division_expr::Division_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2), expr_type(&cxt.integer)
 {
-    Context cxt;
     assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
 }
 
-Modulus_expr::Modulus_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+Modulus_expr::Modulus_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2), expr_type(&cxt.integer)
 {
-    Context cxt;
     assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
 }
 
-Negation_expr::Negation_expr(expr *expression) : e(expression)
+Negation_expr::Negation_expr(expr *expression) : e(expression), expr_type(&cxt.integer)
 {
-    Context cxt;
     assert(check(cxt, expression) == &cxt.integer);
 }
 
-Multiplication_expr::Multiplication_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2)
+Multiplication_expr::Multiplication_expr(expr *expression1, expr *expression2) : e1(expression1), e2(expression2), expr_type(&cxt.integer)
 {
-    Context cxt;
     assert(check(cxt, expression1) == &cxt.integer && check(cxt, expression2) == &cxt.integer);
 }
 
