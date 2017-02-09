@@ -12,8 +12,7 @@ type *check(Context &cxt, expr *e)
         void visit(expr *e) { visit(e); }
         void visit(Bool_expr *e)
         {
-            //Not happy with having to do this and. Going to try and fix it before next commit.
-            if (e->expr_type && e->expr_type == &cxt.boolean)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -24,7 +23,7 @@ type *check(Context &cxt, expr *e)
         }
         void visit(Integer_expr *e)
         {
-            if (e->expr_type && e->expr_type == &cxt.integer)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -38,7 +37,7 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e1()) == &cxt.boolean);
             assert(check(cxt, e->get_e2()) == &cxt.boolean);
 
-            if (e->expr_type && e->expr_type == &cxt.boolean)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -52,7 +51,7 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e1()) == &cxt.boolean);
             assert(check(cxt, e->get_e2()) == &cxt.boolean);
 
-            if (e->expr_type && e->expr_type == &cxt.boolean)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -66,7 +65,7 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e1()) == &cxt.boolean);
             assert(check(cxt, e->get_e2()) == &cxt.boolean);
 
-            if (e->expr_type && e->expr_type == &cxt.boolean)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -80,7 +79,7 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e1()) == &cxt.boolean);
             assert(check(cxt, e->get_e2()) == &cxt.boolean);
 
-            if (e->expr_type && e->expr_type == &cxt.boolean)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -93,7 +92,7 @@ type *check(Context &cxt, expr *e)
         {
             assert(check(cxt, e->get_e()) == &cxt.boolean);
 
-            if (e->expr_type && e->expr_type == &cxt.boolean)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -107,7 +106,7 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e1()) == &cxt.boolean);
             assert(check(cxt, e->get_e2()) == &cxt.boolean);
 
-            if (e->expr_type && e->expr_type == &cxt.boolean)
+            if (e->expr_type)
                 r = e->expr_type;
 
             r = &cxt.boolean;
@@ -119,7 +118,7 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e2()) == &cxt.boolean);
             assert(check(cxt, e->get_e3()) == &cxt.boolean);
 
-            if (e->expr_type && e->expr_type == &cxt.boolean)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -133,7 +132,7 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e1()) == &cxt.integer);
             assert(check(cxt, e->get_e2()) == &cxt.integer);
 
-            if (e->expr_type && e->expr_type == &cxt.boolean)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -147,7 +146,7 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e1()) == &cxt.integer);
             assert(check(cxt, e->get_e2()) == &cxt.integer);
 
-            if (e->expr_type && e->expr_type == &cxt.boolean)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -159,7 +158,7 @@ type *check(Context &cxt, expr *e)
         void visit(EqualTo_expr *e)
         {
             assert(check(cxt, e->get_e1()) == check(cxt, e->get_e2()));
-            if (e->expr_type && e->expr_type == &cxt.boolean)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -172,7 +171,7 @@ type *check(Context &cxt, expr *e)
         {
             assert(check(cxt, e->get_e1()) == check(cxt, e->get_e2()));
 
-            if (e->expr_type && e->expr_type == &cxt.boolean)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -186,7 +185,7 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e1()) == &cxt.integer);
             assert(check(cxt, e->get_e2()) == &cxt.integer);
 
-            if (e->expr_type && e->expr_type == &cxt.boolean)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -200,12 +199,12 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e1()) == &cxt.integer);
             assert(check(cxt, e->get_e2()) == &cxt.integer);
 
-            if (e->expr_type && e->expr_type == &cxt.boolean)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
             {
-                r = &cxt.boolean;
+                r = &cxt.integer;
                 e->expr_type = r;
             }
         }
@@ -214,7 +213,7 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e1()) == &cxt.integer);
             assert(check(cxt, e->get_e2()) == &cxt.integer);
 
-            if (e->expr_type && e->expr_type == &cxt.integer)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -228,7 +227,7 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e1()) == &cxt.integer);
             assert(check(cxt, e->get_e2()) == &cxt.integer);
 
-            if (e->expr_type && e->expr_type == &cxt.integer)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -242,7 +241,7 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e1()) == &cxt.integer);
             assert(check(cxt, e->get_e2()) == &cxt.integer);
 
-            if (e->expr_type && e->expr_type == &cxt.integer)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -256,7 +255,7 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e1()) == &cxt.integer);
             assert(check(cxt, e->get_e2()) == &cxt.integer);
 
-            if (e->expr_type && e->expr_type == &cxt.integer)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -270,7 +269,7 @@ type *check(Context &cxt, expr *e)
             assert(check(cxt, e->get_e1()) == &cxt.integer);
             assert(check(cxt, e->get_e2()) == &cxt.integer);
 
-            if (e->expr_type && e->expr_type == &cxt.integer)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else
@@ -283,7 +282,7 @@ type *check(Context &cxt, expr *e)
         {
             assert(check(cxt, e->get_e()) == &cxt.integer);
 
-            if (e->expr_type && e->expr_type == &cxt.integer)
+            if (e->expr_type)
                 r = e->expr_type;
 
             else

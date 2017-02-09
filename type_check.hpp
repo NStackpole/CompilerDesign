@@ -6,9 +6,6 @@
 #include <cassert>
 #include "AST.hpp"
 
-//Base type class
-
-
 type *check(Context &, expr *);
 
 #endif

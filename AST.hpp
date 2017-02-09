@@ -45,6 +45,7 @@ struct expr
     int weight(expr *);
 };
 
+//Base type class
 struct type
 {
     struct Visitor;

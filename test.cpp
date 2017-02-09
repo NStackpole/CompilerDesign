@@ -2,14 +2,11 @@
 
 #include <iostream>
 
-#include "AST.hpp"
 #include "eval.hpp"
-#include "type_check.hpp"
+
 
 int main()
 {
-    Context cxt;
-
     //Test Bool_expr constructor, eval
     Bool_expr bool_test = Bool_expr(true);
     std::cout << "Bool constructor test (true) :" << eval(&bool_test) << "\n\n";

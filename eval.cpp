@@ -2,7 +2,7 @@
 
 #include "eval.hpp"
 
-//Evaluation expression: one function that contains a Visitor class that has a visit function that is overriden to evaluate any defined expression
+//Evaluation function: one function that contains a Visitor class that has a visit function that is overriden to evaluate any defined expression
 int eval(expr *e)
 {
     struct V : expr::Visitor
@@ -18,7 +18,6 @@ int eval(expr *e)
         void visit(Xor_expr *e) { r = (eval(e->get_e1()) != eval(e->get_e2())); }
         void visit(Conditional_expr *e)
         {
-            check(cxt, e);
             if (eval(e->get_e1()))
                 r = eval(e->get_e2());
             else
