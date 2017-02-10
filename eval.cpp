@@ -8,7 +8,6 @@ int eval(expr *e)
     struct V : expr::Visitor
     {
         int r;
-        Context cxt;
         void visit(Bool_expr *e) { r = e->get_value(); }
         void visit(And_expr *e) { r = eval(e->get_e1()) & eval(e->get_e2()); }
         void visit(Or_expr *e) { r = eval(e->get_e1()) | eval(e->get_e2()); }
