@@ -29,14 +29,53 @@ int eval(expr *e)
         void visit(NotEqualTo_expr *e) { r = eval(e->get_e1()) != eval(e->get_e2()); }
         void visit(LessThanOrEqualTo_expr *e) { r = eval(e->get_e1()) <= eval(e->get_e2()); }
         void visit(MoreThanOrEqualTo_expr *e) { r = eval(e->get_e1()) >= eval(e->get_e2()); }
-        void visit(Addition_expr *e){ r = eval(e->get_e1()) + eval(e->get_e2()); } 
-        void visit(Subtraction_expr *e) { r = eval(e->get_e1()) - eval(e->get_e2()); } 
-        void visit(Multiplication_expr *e) { r = eval(e->get_e1()) * eval(e->get_e2()); } 
-        void visit(Division_expr *e){ r = eval(e->get_e1()) / eval(e->get_e2()); } 
-        void visit(Modulus_expr *e){ r = eval(e->get_e1()) % eval(e->get_e2()); } 
-        void visit(Negation_expr *e){ r = 0 - eval(e->get_e()); } 
+        void visit(Addition_expr *e)
+        {
+            if (std::numeric_limits<int>::max() - eval(e->get_e1()) < eval(e->get_e2()))
+                throw "Integer Overflow Detected in addition. Exiting program.\n";
+            r = eval(e->get_e1()) + eval(e->get_e2());
+        }
+        void visit(Subtraction_expr *e)
+        {
+            if (std::numeric_limits<int>::max() - eval(e->get_e1()) < eval(e->get_e2()))
+                throw "Integer Overflow Detected in subtraction. Exiting Program.\n";
+            r = eval(e->get_e1()) - eval(e->get_e2());
+        }
+        void visit(Multiplication_expr *e)
+        {
+            if (std::numeric_limits<int>::max() - eval(e->get_e1()) < eval(e->get_e2()))
+                throw "Integer Overflow Detected in multiplication. Exiting Program.\n";
+            r = eval(e->get_e1()) * eval(e->get_e2());
+        }
+        void visit(Division_expr *e)
+        {
+            if (eval(e->get_e2()) == 0)
+                throw "Division by zero detected. Exiting Program.\n";
+            if (eval(e->get_e2()) == std::numeric_limits<int>::min())
+                throw "Division by minimum integer value detected. Exiting Program.\n";
+            r = eval(e->get_e1()) / eval(e->get_e2());
+        }
+        void visit(Modulus_expr *e)
+        {
+            if (eval(e->get_e2()) == 0)
+                throw "Modular divison by zero detected. Exiting Program.\n";
+            if (eval(e->get_e2()) == std::numeric_limits<int>::min())
+                throw "Modular divison by minimum integer value detected. Exiting Program.\n";
+            r = eval(e->get_e1()) % eval(e->get_e2());
+        }
+        void visit(Negation_expr *e) { r = 0 - eval(e->get_e()); }
     };
     V vis;
-    e->accept(vis);
+    try
+    {
+        e->accept(vis);
+    }
+    catch (const char *message)
+    {
+        std::cerr << "Exception Caught: \n";
+        std::cerr << message << "\n";
+        abort();
+    }
+
     return vis.r;
 }
