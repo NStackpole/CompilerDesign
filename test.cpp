@@ -5,7 +5,6 @@
 #include "eval.hpp"
 #include <limits>
 
-
 int main()
 {
     //Test Bool_expr constructor, eval
@@ -96,6 +95,7 @@ int main()
 
     //Type checking tests
     //Replace an integer variable or boolean variable below with a boolean variable or integer variable respectively to make the program abort
+    //If all types are right then the program should run to completeion, if not an assertion should be abort the program.
     And_expr and_type_check_test = And_expr(&not_test, &and_test);
     AndThen_expr and_then_check_test = AndThen_expr(&not_test, &and_test);
 

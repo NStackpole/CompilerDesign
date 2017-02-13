@@ -53,21 +53,24 @@ struct type
     virtual void accept(Visitor &) {}
 };
 
+//Boolean type class
 struct bool_type : type
 {
 };
 
+//Integer type class
 struct integer_type : type
 {
 };
 
+//Type context to be used throughout library to define the two different types.
 struct Context
 {
     bool_type boolean;
     integer_type integer;
 };
 
-//expr Visitor class
+//expr Visitor class. For visiting expr, either to evaluate the expressions or to do type checking
 struct expr::Visitor
 {
     virtual void visit(Bool_expr *) = 0;
@@ -108,7 +111,7 @@ class Bool_expr : public expr
     bool get_value();
 };
 
-//Not (!e) expression
+//Not (!e) expression.
 class Not_expr : public expr
 {
     expr *e;
@@ -177,7 +180,7 @@ class Xor_expr : public expr
     expr *get_e2() const;
 };
 
-//And expression
+//And (&) expression
 class And_expr : public expr
 {
 
@@ -195,7 +198,7 @@ class And_expr : public expr
     expr *get_e2() const;
 };
 
-//AndThen expression
+//AndThen (&&) expression
 class AndThen_expr : public expr
 {
 
@@ -356,6 +359,7 @@ class MoreThanOrEqualTo_expr : public expr
     expr *get_e2() const;
 };
 
+//Addition expression (+) class
 class Addition_expr : public expr
 {
     expr *e1;
@@ -372,6 +376,7 @@ class Addition_expr : public expr
     expr *get_e2() const;
 };
 
+//Subtraction expression (-) class
 class Subtraction_expr : public expr
 {
     expr *e1;
@@ -388,6 +393,7 @@ class Subtraction_expr : public expr
     expr *get_e2() const;
 };
 
+//Division expression (/) class
 class Division_expr : public expr
 {
     expr *e1;
@@ -404,6 +410,7 @@ class Division_expr : public expr
     expr *get_e2() const;
 };
 
+//Modulus divison expression (%) class
 class Modulus_expr : public expr
 {
     expr *e1;
@@ -420,6 +427,7 @@ class Modulus_expr : public expr
     expr *get_e2() const;
 };
 
+//Integer negation expression (-e) class.
 class Negation_expr : public expr
 {
     expr *e;
@@ -434,6 +442,7 @@ class Negation_expr : public expr
     expr *get_e() const;
 };
 
+//Multiplication expression (*) class
 class Multiplication_expr : public expr
 {
     expr *e1;
