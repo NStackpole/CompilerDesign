@@ -2,27 +2,43 @@
 
 #include "lexer.hpp"
 
-token::token(int n) : name(n){}
+token::token(int n) : name(n) {}
 
-void lexer::consume(){ ++first; }
+void lexer::consume() { ++first; }
 
 bool lexer::EOF() const { return first == last; }
 
 char lexer::look_ahead() const
 {
-    if(EOF())
+    if (EOF())
         return 0;
     else
         return *first;
 }
 
-token* lexer::next()
+token *lexer::next()
 {
-    while(!EOF())
+    while (!EOF())
     {
-        switch(look_ahead())
+        switch (look_ahead())
         {
-
+            case '<':
+                consume();
+                if (look_ahead() == '=')
+                {
+                    consume();
+                    return new token(less_than_eq_tok);
+                }
+                return new token(less_than_tok);
+            case '>':
+                consume();
+                if (look_ahead() == '=')
+                {
+                    consume();
+                    return new token(more_than_eq_tok);
+                }
+                else
+                    return new token(more_than_tok);
         }
     }
     return nullptr;

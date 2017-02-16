@@ -3,7 +3,7 @@
 struct token
 {
     token(int n);
-    
+
     int name;
 };
 
@@ -16,7 +16,11 @@ enum token_kind
     minus_tok,
     star_tok,
     slash_tok,
-    percent_tok
+    percent_tok,
+    less_than_tok,
+    less_than_eq_tok,
+    more_than_tok,
+    more_than_eq_tok
 };
 
 class lexer
