@@ -8,6 +8,7 @@ add_executable(compiler-test
   AST.cpp
   eval.cpp
   type_check.cpp
+  lexer.cpp
 	)
 
 set(files AST.cpp test.cpp eval.cpp type_check.cpp)

@@ -1,0 +1,32 @@
+//Nathan Stackpole, 2017
+
+struct token
+{
+    token(int n);
+    
+    int name;
+};
+
+enum token_kind
+{
+    eof_tok,
+    L_parenth_tok,
+    R_parenth_tok,
+    plus_tok,
+    minus_tok,
+    star_tok,
+    slash_tok,
+    percent_tok
+};
+
+class lexer
+{
+    const char* first;
+    const char* last;
+
+    bool EOF() const;
+    char look_ahead() const;
+    void consume();
+    token* next();
+
+};
