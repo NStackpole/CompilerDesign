@@ -7,6 +7,7 @@ This language currently:
 * Checks the types of expressions to make sure they are well formed. If an expression is not well formed the program will abort.
 
 TODO:
+* Implement a lexer
 * Implement expression printing
 
 #### File Descriptions:
