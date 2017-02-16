@@ -1,4 +1,4 @@
-//Nathan Stackpole
+//Nathan Stackpole, 2017
 
 #ifndef EVAL_HPP
 #define EVAL_HPP

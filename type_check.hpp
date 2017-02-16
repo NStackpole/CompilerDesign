@@ -1,4 +1,4 @@
-//Nathan Stackpole
+//Nathan Stackpole, 2017
 
 #ifndef TYPE_HPP
 #define TYPE_HPP

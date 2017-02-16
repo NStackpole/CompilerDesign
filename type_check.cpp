@@ -1,4 +1,4 @@
-//Nathan Stackpole
+//Nathan Stackpole, 2017
 
 #include "type_check.hpp"
 

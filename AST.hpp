@@ -1,4 +1,4 @@
-//Nathan Stackpole
+//Nathan Stackpole, 2017
 
 #ifndef AST_HPP
 #define AST_HPP
