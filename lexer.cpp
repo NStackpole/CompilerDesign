@@ -3,14 +3,34 @@
 #include "lexer.hpp"
 
 token::token(int n) : name(n) {}
+token::token(){}
 
-void lexer::consume() { ++first; }
 
-bool lexer::EOF() const { return first == last; }
+integer_token::integer_token(int n) : value(n) 
+{
+    name = int_tok; 
+}
+
+bool lexer::end_of_file() const { return first == last; }
+
+void lexer::consume() 
+{
+    if(end_of_file())
+        return;
+    buffer += *first++;
+    first++;
+}
+
+void lexer::ignore()
+{
+    if(end_of_file())
+        return;
+    first++;
+}
 
 char lexer::look_ahead() const
 {
-    if (EOF())
+    if (end_of_file())
         return 0;
     else
         return *first;
@@ -18,7 +38,8 @@ char lexer::look_ahead() const
 
 token *lexer::next()
 {
-    while (!EOF())
+    buffer.clear();
+    while (!end_of_file())
     {
         switch (look_ahead())
         {
@@ -39,6 +60,28 @@ token *lexer::next()
                 }
                 else
                     return new token(more_than_tok);
+            case ')':
+                return new token(L_parenth_tok);
+            case '(':
+                return new token(R_parenth_tok);
+            case '+':
+                return new token(plus_tok);
+            case '-':
+                return new token(minus_tok);
+            case '/':
+                return new token(slash_tok);
+            case '*':
+                return new token(star_tok);
+            case '0'...'9':
+                consume();
+
+                while(!end_of_file() && std::isdigit(look_ahead()))
+                    consume();
+
+                int n = std::stoi(buffer);
+                return new integer_token(n); 
+
+                
         }
     }
     return nullptr;

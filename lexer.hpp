@@ -1,10 +1,19 @@
 //Nathan Stackpole, 2017
 
+#include <cctype>
+#include <string>
+
 struct token
 {
-    token(int n);
-
     int name;
+    token(int);
+    token();
+};
+
+struct integer_token : public token
+{
+    int value;
+    integer_token(int);
 };
 
 enum token_kind
@@ -20,17 +29,19 @@ enum token_kind
     less_than_tok,
     less_than_eq_tok,
     more_than_tok,
-    more_than_eq_tok
+    more_than_eq_tok,
+    int_tok
 };
 
 class lexer
 {
-    const char* first;
-    const char* last;
+    const char *first;
+    const char *last;
+    std::string buffer;
 
-    bool EOF() const;
+    bool end_of_file() const;
     char look_ahead() const;
     void consume();
+    void ignore();
     token* next();
-
 };
