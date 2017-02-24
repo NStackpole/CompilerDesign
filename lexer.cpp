@@ -72,6 +72,10 @@ token *lexer::next()
                 return new token(slash_tok);
             case '*':
                 return new token(star_tok);
+            case '&':
+                return new token(amp_tok);
+            case '|':
+                return new token(pipe_tok);
             case '0'...'9':
                 consume();
 

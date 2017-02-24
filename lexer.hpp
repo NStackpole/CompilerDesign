@@ -30,7 +30,10 @@ enum token_kind
     less_than_eq_tok,
     more_than_tok,
     more_than_eq_tok,
-    int_tok
+    int_tok,
+    pipe_tok,
+    amp_tok,
+    or_tok
 };
 
 class lexer
