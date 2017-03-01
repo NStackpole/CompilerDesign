@@ -73,6 +73,11 @@ token *lexer::next()
             case '*':
                 return new token(star_tok);
             case '&':
+                if(look_ahead() == '&')
+                {
+                    consume();
+                    return new token(and_tok);
+                }
                 return new token(amp_tok);
             case '|':
                 if(look_ahead() == '|')

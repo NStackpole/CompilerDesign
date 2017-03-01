@@ -33,7 +33,8 @@ enum token_kind
     int_tok,
     pipe_tok,
     amp_tok,
-    or_tok
+    or_tok,
+    and_tok
 };
 
 class lexer
