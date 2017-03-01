@@ -75,6 +75,11 @@ token *lexer::next()
             case '&':
                 return new token(amp_tok);
             case '|':
+                if(look_ahead() == '|')
+                {
+                    consume();
+                    return new token(or_tok);
+                }
                 return new token(pipe_tok);
             case '0'...'9':
                 consume();
