@@ -2,6 +2,7 @@
 
 #include <cctype>
 #include <string>
+#include <cstring>
 
 struct token
 {
@@ -42,6 +43,9 @@ class lexer
     const char *first;
     const char *last;
     std::string buffer;
+
+public:
+    lexer(char*);
 
     bool end_of_file() const;
     char look_ahead() const;
