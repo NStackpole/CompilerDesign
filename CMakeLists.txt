@@ -10,6 +10,10 @@ add_executable(compiler-test
   type_check.cpp
   lexer.cpp
 	)
+  
+add_executable(calc
+  calculator.cpp
+  )
 
 set(files AST.cpp test.cpp eval.cpp type_check.cpp lexer.cpp)
 

@@ -8,6 +8,7 @@ This language currently:
 
 TODO:
 * Implement a lexer
+* Implement a calculator 
 * Implement expression printing
 
 #### File Descriptions:
