@@ -7,19 +7,25 @@
 struct token
 {
     int name;
-    token(int);
+    std::string value;
+    token(int, std::string);
     token();
 };
 
 struct integer_token : public token
 {
-    int value;
-    integer_token(int);
+    integer_token(std::string);
+};
+
+struct boolean_token : public token
+{
+    boolean_token(int);
 };
 
 enum token_kind
 {
-    eof_tok,
+    false_tok,
+    true_tok,
     L_parenth_tok,
     R_parenth_tok,
     plus_tok,
