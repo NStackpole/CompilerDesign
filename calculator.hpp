@@ -4,9 +4,10 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <map>
 
 //Calculates and prints the value of an expression
 void calculate(std::vector<token *>);
 
 //performs lexical analysis on a line
-std::vector<token *> lex_line(char*);
+std::vector<token *> lex_line(char *, std::map<int, std::string> &);
