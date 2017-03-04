@@ -57,7 +57,6 @@ token *lexer::next()
         switch (look_ahead())
         {
         case ' ':
-            //consume();
             first++;
             break;
         case '#':

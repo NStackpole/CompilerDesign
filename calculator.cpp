@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
 
 void calculate(std::vector<token *> line_tokens)
 {
+    //Placeholder calc function
     std::vector<int> integers;
     std::vector<bool> bools;
 
