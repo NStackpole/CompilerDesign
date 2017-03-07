@@ -31,31 +31,37 @@ int main(int argc, char *argv[])
         std::cout << line << "\n";
         std::vector<token *> line_tokens = lex_line(line, token_names);
         calculate(line_tokens);
+        std::cout << "\n";
     }
 }
 
 void calculate(std::vector<token *> line_tokens)
 {
     //Placeholder calc function
-    std::vector<int> integers;
-    std::vector<bool> bools;
+    std::vector<expr *> expressions;
 
     for (int i = 0; i < line_tokens.size(); ++i)
     {
         if (line_tokens[i]->name == 0)
-            bools.push_back(false);
+            expressions.push_back(new Bool_expr(false));
         else if (line_tokens[i]->name == 1)
-            bools.push_back(true);
-
+            expressions.push_back(new Bool_expr(true));
+        /*else if (line_tokens[i]->name == 4)
+            expressions.push_back(new Addition_expr());*/
         else if (line_tokens[i]->name == 13)
         {
-            integers.push_back(std::stoi(line_tokens[i]->value));
-        }
-
-        else if (line_tokens[i]->name == 4)
-        {
-            integers.push_back(std::stoi((line_tokens[i + 1])->value));
-            std::cout << "eval= " << integers[0] + integers[1] << "\n";
+            std::cout << "";
+            expressions.push_back(new Integer_expr(std::stoi(line_tokens[i]->value)));
+            if (i > 1)
+            {
+                std::cout<<"i>1\n";
+                if (line_tokens[i - 1]->name == 4 && line_tokens[i - 2]->name == 13)
+                {
+                    std::cout<<"Making addition expr\n" << expressions.size() << "\n\n";
+                    Addition_expr current_add_expr = Addition_expr(expressions[0], expressions[1]);
+                    std::cout << "Evaluation: " << eval(&current_add_expr) << "\n\n";
+                }
+            }
         }
     }
 }
