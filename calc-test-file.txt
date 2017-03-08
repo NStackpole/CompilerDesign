@@ -1,5 +1,7 @@
 #Comment test
-#Addition tests
 12 + 4
 1623 + 12521
 12    +   1
+12 * 4
+10 / 2
+6 % 5

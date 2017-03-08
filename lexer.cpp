@@ -2,14 +2,14 @@
 
 #include "lexer.hpp"
 
-lexer::lexer(char* line) : first(line), last(&line[std::strlen(line)])
+lexer::lexer(char *line) : first(line), last(&line[std::strlen(line)])
 {
 }
 
 token::token(int n, std::string s) : name(n), value(s) {}
 token::token() {}
 
-integer_token::integer_token(std::string n) 
+integer_token::integer_token(std::string n)
 {
     value = n;
     name = int_tok;
@@ -18,9 +18,9 @@ integer_token::integer_token(std::string n)
 boolean_token::boolean_token(int n)
 {
     name = n;
-    if(n == 0)
+    if (n == 0)
         value = "false";
-    else if (n==1)
+    else if (n == 1)
         value = "true";
 };
 
@@ -57,7 +57,7 @@ token *lexer::next()
         switch (look_ahead())
         {
         case ' ':
-            first++;
+            ignore();
             break;
         case '#':
             first = last;
@@ -94,6 +94,9 @@ token *lexer::next()
         case '/':
             consume();
             return new token(slash_tok, buffer);
+        case '%':
+            consume();
+            return new token(percent_tok, buffer);
         case '*':
             consume();
             return new token(star_tok, buffer);
