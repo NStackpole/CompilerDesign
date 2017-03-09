@@ -96,80 +96,94 @@ std::vector<token *> lex_line(char *line, std::map<int, std::string> &token_name
 
 void create_expression(int expression_type, std::vector<Integer_expr *> integers, std::vector<Bool_expr *> booleans)
 {
+    switch (expression_type)
+    {
 
-    std::cout << "creating expression\n";
-    std::cout << integers.size() << " " << booleans.size() << "\n";
-    if (expression_type == 4)
+    case (4):
     {
         Addition_expr current_expr = Addition_expr(integers[0], integers[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
+        break;
     }
-    else if (expression_type == 5)
+    case (5):
     {
         Subtraction_expr current_expr = Subtraction_expr(integers[0], integers[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
+        break;
     }
-    else if (expression_type == 6)
+    case (6):
     {
         Multiplication_expr current_expr = Multiplication_expr(integers[0], integers[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
+        break;
     }
-    else if (expression_type == 7)
+    case (7):
     {
         Division_expr current_expr = Division_expr(integers[0], integers[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
+        break;
     }
-    else if (expression_type == 8)
+    case (8):
     {
         Modulus_expr current_expr = Modulus_expr(integers[0], integers[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
+        break;
     }
-    else if (expression_type == 9)
+    case (9):
     {
         LessThan_expr current_expr = LessThan_expr(booleans[0], booleans[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
+        break;
     }
-    else if (expression_type == 10)
+    case (10):
     {
         LessThanOrEqualTo_expr current_expr = LessThanOrEqualTo_expr(booleans[0], booleans[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
+        break;
     }
-    else if (expression_type == 11)
+    case (11):
     {
         MoreThan_expr current_expr = MoreThan_expr(booleans[0], booleans[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
+        break;
     }
-    else if (expression_type == 12)
+    case (12):
     {
         MoreThanOrEqualTo_expr current_expr = MoreThanOrEqualTo_expr(booleans[0], booleans[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
+        break;
     }
-    else if (expression_type == 14)
+    case (14):
     {
         And_expr current_expr = And_expr(booleans[0], booleans[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
+        break;
     }
-    else if (expression_type == 15)
+    case (15):
     {
         Or_expr current_expr = Or_expr(booleans[0], booleans[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
+        break;
     }
-    else if (expression_type == 16)
+    case (16):
     {
         OrElse_expr current_expr = OrElse_expr(booleans[0], booleans[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
+        break;
     }
-    else if (expression_type == 17)
+    case (17):
     {
         AndThen_expr current_expr = AndThen_expr(booleans[0], booleans[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
+        break;
     }
-    else if (expression_type == 18)
+    case (18):
     {
         Not_expr current_expr = Not_expr(booleans[0]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
+        break;
     }
-    else if (expression_type == 19)
+    case (19):
     {
         NotEqualTo_expr current_expr;
 
@@ -179,8 +193,9 @@ void create_expression(int expression_type, std::vector<Integer_expr *> integers
             NotEqualTo_expr current_expr = NotEqualTo_expr(integers[0], integers[1]);
 
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
+        break;
     }
-    else if (expression_type == 20)
+    case (20):
     {
         EqualTo_expr current_expr;
 
@@ -190,7 +205,7 @@ void create_expression(int expression_type, std::vector<Integer_expr *> integers
             EqualTo_expr current_expr = EqualTo_expr(integers[0], integers[1]);
 
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
+        break;
     }
-
-
+    }
 }
