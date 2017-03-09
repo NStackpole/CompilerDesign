@@ -5,6 +5,7 @@
 int main(int argc, char *argv[])
 {
 
+    //A map used for printing out token names.
     std::map<int, std::string> token_names;
     token_names[0] = "False token";
     token_names[1] = "True token";
@@ -30,6 +31,7 @@ int main(int argc, char *argv[])
     token_names[21] = "Conditional token";
     token_names[22] = "Otherwise token";
 
+    //Read in a line at a time, create tokens from it, turn those tokens into expressions that are then evaluated.
     char line[256];
     while (std::cin.getline(line, 256))
     {
@@ -41,6 +43,9 @@ int main(int argc, char *argv[])
     }
 }
 
+//Turns tokens into expressions. Will probably be replaced when the parser is complete.
+//Only works for one expression per line and does not work with conditional expressions.
+//If an expression cannot be evaluated it is simply skipped.
 void calculate(std::vector<token *> line_tokens)
 {
     std::vector<Integer_expr *> integers;
@@ -61,101 +66,107 @@ void calculate(std::vector<token *> line_tokens)
             expression_type = line_tokens[i]->name;
     }
 
-    /*std::cout<<integers.size()<<"\n";
-    std::cout<<booleans.size()<<"\n";
-
-    for(int i = 0; i < integers.size(); ++i)
-        std::cout<<integers[i]<<"\n";
-    for(int i = 0; i < booleans.size(); ++i)
-        std::cout<<booleans[i]<<"\n";*/
-
     if (expression_type == 18)
         assert(booleans.size() == 1);
     else
         assert(integers.size() == 2 || booleans.size() == 2);
 
+    create_expression(expression_type, integers, booleans);
+}
+
+//Creates a lexer object with the line that was passed in and creates tokens. The name and attribute of each token are then printed out.
+std::vector<token *> lex_line(char *line, std::map<int, std::string> &token_names)
+{
+    std::vector<token *> tokens;
+    lexer line_lexer = lexer(line);
+    token *current_token = line_lexer.next();
+    while (current_token != nullptr)
+    {
+        tokens.push_back(current_token);
+        current_token = line_lexer.next();
+    }
+
+    for (int i = 0; i < tokens.size(); ++i)
+    {
+        std::cout << tokens[i]->name << " -> " << token_names[tokens[i]->name] << " -> " << tokens[i]->value << "\n";
+    }
+
+    return tokens;
+}
+
+void create_expression(int expression_type, std::vector<Integer_expr *> integers, std::vector<Bool_expr *> booleans)
+{
+
+    std::cout << "creating expression\n";
+    std::cout << integers.size() << " " << booleans.size() << "\n";
     if (expression_type == 4)
     {
         Addition_expr current_expr = Addition_expr(integers[0], integers[1]);
-
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
     }
     else if (expression_type == 5)
     {
         Subtraction_expr current_expr = Subtraction_expr(integers[0], integers[1]);
-
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
     }
     else if (expression_type == 6)
     {
         Multiplication_expr current_expr = Multiplication_expr(integers[0], integers[1]);
-
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
     }
     else if (expression_type == 7)
     {
         Division_expr current_expr = Division_expr(integers[0], integers[1]);
-
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
     }
     else if (expression_type == 8)
     {
         Modulus_expr current_expr = Modulus_expr(integers[0], integers[1]);
-
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
     }
     else if (expression_type == 9)
     {
         LessThan_expr current_expr = LessThan_expr(booleans[0], booleans[1]);
-
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
     }
     else if (expression_type == 10)
     {
         LessThanOrEqualTo_expr current_expr = LessThanOrEqualTo_expr(booleans[0], booleans[1]);
-
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
     }
     else if (expression_type == 11)
     {
         MoreThan_expr current_expr = MoreThan_expr(booleans[0], booleans[1]);
-
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
     }
     else if (expression_type == 12)
     {
         MoreThanOrEqualTo_expr current_expr = MoreThanOrEqualTo_expr(booleans[0], booleans[1]);
-
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
     }
     else if (expression_type == 14)
     {
         And_expr current_expr = And_expr(booleans[0], booleans[1]);
-
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
     }
     else if (expression_type == 15)
     {
         Or_expr current_expr = Or_expr(booleans[0], booleans[1]);
-
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
     }
     else if (expression_type == 16)
     {
         OrElse_expr current_expr = OrElse_expr(booleans[0], booleans[1]);
-
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
     }
     else if (expression_type == 17)
     {
         AndThen_expr current_expr = AndThen_expr(booleans[0], booleans[1]);
-
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
     }
     else if (expression_type == 18)
     {
         Not_expr current_expr = Not_expr(booleans[0]);
-
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
     }
     else if (expression_type == 19)
@@ -180,23 +191,6 @@ void calculate(std::vector<token *> line_tokens)
 
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
     }
-}
 
-std::vector<token *> lex_line(char *line, std::map<int, std::string> &token_names)
-{
-    std::vector<token *> tokens;
-    lexer line_lexer = lexer(line);
-    token *current_token = line_lexer.next();
-    while (current_token != nullptr)
-    {
-        tokens.push_back(current_token);
-        current_token = line_lexer.next();
-    }
 
-    for (int i = 0; i < tokens.size(); ++i)
-    {
-        std::cout << tokens[i]->name << " -> " << token_names[tokens[i]->name] << " -> " << tokens[i]->value << "\n";
-    }
-
-    return tokens;
 }
