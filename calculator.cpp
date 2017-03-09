@@ -24,6 +24,11 @@ int main(int argc, char *argv[])
     token_names[15] = "Ampersand token";
     token_names[16] = "Or token";
     token_names[17] = "And token";
+    token_names[18] = "Bang token";
+    token_names[19] = "Not Equals token";
+    token_names[20] = "Equals token";
+    token_names[21] = "Conditional token";
+    token_names[22] = "Otherwise token";
 
     char line[256];
     while (std::cin.getline(line, 256))

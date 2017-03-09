@@ -41,7 +41,12 @@ enum token_kind
     pipe_tok,
     amp_tok,
     or_tok,
-    and_tok
+    and_tok,
+    bang_tok,
+    not_eq_tok,
+    eq_tok,
+    conditional_tok,
+    otherwise_tok
 };
 
 class lexer
