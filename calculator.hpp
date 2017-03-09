@@ -6,7 +6,7 @@
 #include <string>
 #include <map>
 
-//Calculates and prints the value of an expression
+//Extracts the variables and expression type from the tokens of the line
 void calculate(std::vector<token *>);
 
 //performs lexical analysis on a line

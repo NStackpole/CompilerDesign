@@ -37,13 +37,15 @@ int main(int argc, char *argv[])
     {
         std::cout << line << "\n";
         std::vector<token *> line_tokens = lex_line(line, token_names);
+
         if (line_tokens.size() > 0)
             calculate(line_tokens);
+
         std::cout << "\n";
     }
 }
 
-//Turns tokens into expressions. Will probably be replaced when the parser is complete.
+//Finds the variables in a line and expression type. Will probably be replaced when the parser is complete.
 //Only works for one expression per line and does not work with conditional expressions.
 //If an expression cannot be evaluated it is simply skipped.
 void calculate(std::vector<token *> line_tokens)
@@ -80,6 +82,7 @@ std::vector<token *> lex_line(char *line, std::map<int, std::string> &token_name
     std::vector<token *> tokens;
     lexer line_lexer = lexer(line);
     token *current_token = line_lexer.next();
+
     while (current_token != nullptr)
     {
         tokens.push_back(current_token);
@@ -94,8 +97,10 @@ std::vector<token *> lex_line(char *line, std::map<int, std::string> &token_name
     return tokens;
 }
 
+//Creates an expression with a given expression type and expression variables.
 void create_expression(int expression_type, std::vector<Integer_expr *> integers, std::vector<Bool_expr *> booleans)
 {
+    std::cout << "Create expression\n";
     switch (expression_type)
     {
 
@@ -185,24 +190,42 @@ void create_expression(int expression_type, std::vector<Integer_expr *> integers
     }
     case (19):
     {
-        NotEqualTo_expr current_expr;
 
-        if (booleans.size() > 2)
-            NotEqualTo_expr current_expr = NotEqualTo_expr(booleans[0], booleans[1]);
+        expr *e1;
+        expr *e2;
+
+        if (booleans.size() == 2)
+        {
+            e1 = booleans[0];
+            e2 = booleans[1];
+        }
         else
-            NotEqualTo_expr current_expr = NotEqualTo_expr(integers[0], integers[1]);
+        {
+            e1 = integers[0];
+            e2 = integers[1];
+        }
+
+        NotEqualTo_expr current_expr = NotEqualTo_expr(e1, e2);
 
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
         break;
     }
     case (20):
     {
-        EqualTo_expr current_expr;
-
-        if (booleans.size() > 2)
-            EqualTo_expr current_expr = EqualTo_expr(booleans[0], booleans[1]);
+        expr *e1;
+        expr *e2;
+        if (booleans.size() == 2)
+        {
+            e1 = booleans[0];
+            e2 = booleans[1];
+        }
         else
-            EqualTo_expr current_expr = EqualTo_expr(integers[0], integers[1]);
+        {
+            e1 = integers[0];
+            e2 = integers[1];
+        }
+
+        EqualTo_expr current_expr = EqualTo_expr(e1, e2);
 
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
         break;
