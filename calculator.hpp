@@ -1,3 +1,8 @@
+//Nathan Stackpole, 2017
+
+#ifndef CALC_HPP
+#define CALC_HPP
+
 #include "lexer.hpp"
 #include "AST.hpp"
 #include "eval.hpp"
@@ -15,3 +20,5 @@ std::vector<token *> lex_line(char *, std::map<int, std::string> &);
 //Creates an expression given an integer referring to the type of expression that needs to be made and the vectors holding the variables of the expr
 //Prints out evaluation of expression
 void create_expression(int, std::vector<Integer_expr *>, std::vector<Bool_expr *>);
+
+#endif

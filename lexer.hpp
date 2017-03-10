@@ -1,6 +1,8 @@
 //Nathan Stackpole, 2017
 
-#include <cctype>
+#ifndef LEX_HPP
+#define LEX_HPP
+
 #include <string>
 #include <cstring>
 
@@ -64,3 +66,5 @@ public:
     void ignore();
     token* next();
 };
+
+#endif
