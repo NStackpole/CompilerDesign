@@ -1,25 +1,46 @@
 #Comment test
+#Addition test
 12 + 4
 1623 + 12521
 12    +   1
+
+#multiplication test
 12 * 4
+
+#divison test
 10 / 2
+
+#modular divison test
 6 % 5
+
+#boolean tests
 true || false
 true | false
 true && false
 true & false
+
+#condition test (wont evaluate)
 1 > 2 ? 2+6 : 2*4
+
+#equals, not equals, and not tests
 !false
 true == false
 true != false
+
+#Greater than tests
 1 > 2
+2 > 2
+
+#Greater than or equals tests
 2 >= 2
 1 >= 2
 3 >= 2
-2 > 2
+
+#Less than tests
 3 < 3
 3 < 4
+
+#Less than or equals tests
 3 <= 4
 3 <= 3
 3 <= 2
