@@ -100,7 +100,7 @@ std::vector<token *> lex_line(char *line, std::map<int, std::string> &token_name
 //Creates an expression with a given expression type and expression variables.
 void create_expression(int expression_type, std::vector<Integer_expr *> integers, std::vector<Bool_expr *> booleans)
 {
-    std::cout << "Create expression\n";
+    
     switch (expression_type)
     {
 
@@ -136,25 +136,25 @@ void create_expression(int expression_type, std::vector<Integer_expr *> integers
     }
     case (9):
     {
-        LessThan_expr current_expr = LessThan_expr(booleans[0], booleans[1]);
+        LessThan_expr current_expr = LessThan_expr(integers[0], integers[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
         break;
     }
     case (10):
     {
-        LessThanOrEqualTo_expr current_expr = LessThanOrEqualTo_expr(booleans[0], booleans[1]);
+        LessThanOrEqualTo_expr current_expr = LessThanOrEqualTo_expr(integers[0], integers[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
         break;
     }
     case (11):
     {
-        MoreThan_expr current_expr = MoreThan_expr(booleans[0], booleans[1]);
+        MoreThan_expr current_expr = MoreThan_expr(integers[0], integers[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
         break;
     }
     case (12):
     {
-        MoreThanOrEqualTo_expr current_expr = MoreThanOrEqualTo_expr(booleans[0], booleans[1]);
+        MoreThanOrEqualTo_expr current_expr = MoreThanOrEqualTo_expr(integers[0], integers[1]);
         std::cout << "Evaluation: " << eval(&current_expr) << "\n\n";
         break;
     }
