@@ -70,6 +70,7 @@ token *lexer::next()
                 return new token(less_than_eq_tok, buffer);
             }
             return new token(less_than_tok, buffer);
+            break;
         case '>':
             consume();
             if (look_ahead() == '=')
@@ -79,18 +80,23 @@ token *lexer::next()
             }
             else
                 return new token(more_than_tok, buffer);
+            break;
         case ')':
             consume();
             return new token(R_parenth_tok, buffer);
+            break;
         case '(':
             consume();
             return new token(L_parenth_tok, buffer);
+            break;
         case '+':
             consume();
             return new token(plus_tok, buffer);
+            break;
         case '-':
             consume();
             return new token(minus_tok, buffer);
+            break;
         case '!':
             consume();
             if(look_ahead() == '=')
@@ -99,6 +105,7 @@ token *lexer::next()
                 return new token(not_eq_tok, buffer);
             }
             return new token(bang_tok, buffer);
+            break;
         case '=':
             consume();
             if(look_ahead() == '=')
@@ -110,18 +117,23 @@ token *lexer::next()
         case '?':
             consume();
             return new token(conditional_tok, buffer);
+            break;
         case ':':
             consume();
             return new token(otherwise_tok, buffer);
+            break;
         case '/':
             consume();
             return new token(slash_tok, buffer);
+            break;
         case '%':
             consume();
             return new token(percent_tok, buffer);
+            break;
         case '*':
             consume();
             return new token(star_tok, buffer);
+            break;
         case '&':
             consume();
             if (look_ahead() == '&')
@@ -130,6 +142,7 @@ token *lexer::next()
                 return new token(and_tok, buffer);
             }
             return new token(amp_tok, buffer);
+            break;
         case '|':
             consume();
             if (look_ahead() == '|')
@@ -138,6 +151,7 @@ token *lexer::next()
                 return new token(or_tok, buffer);
             }
             return new token(pipe_tok, buffer);
+            break;
         case '0' ... '9':
             consume();
 
@@ -145,6 +159,7 @@ token *lexer::next()
                 consume();
 
             return new integer_token(buffer);
+            break;
         case 't':
             consume();
             consume();
@@ -152,6 +167,7 @@ token *lexer::next()
             consume();
             if(buffer == "true")
                 return new token(true_tok, buffer);
+            break;
         case 'f':
             consume();
             consume();
@@ -160,6 +176,7 @@ token *lexer::next()
             consume();
             if(buffer == "false")
                 return new token(false_tok, buffer);
+            break;
         }
     }
     return nullptr;
