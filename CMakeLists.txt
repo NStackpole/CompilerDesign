@@ -17,6 +17,7 @@ add_executable(calc
   eval.cpp
   type_check.cpp
   lexer.cpp
+  parser.cpp
   )
 
 set(files AST.cpp test.cpp eval.cpp type_check.cpp lexer.cpp)
