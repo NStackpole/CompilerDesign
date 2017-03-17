@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
         std::cout << line << "\n";
         std::vector<token *> line_tokens = lex_line(line, token_names);
 
-        if (line_tokens.size() > 0)
+        if (line_tokens.size() > 1)
             calculate(line_tokens);
 
         std::cout << "\n";
