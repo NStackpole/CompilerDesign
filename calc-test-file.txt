@@ -12,6 +12,11 @@
 
 #modular divison test
 6 % 5
+10%2
+8  %3
+
+#negation test
+-4
 
 #boolean tests
 true || false
