@@ -4,17 +4,19 @@
 #include "AST.hpp"
 #include <iostream>
 #include <vector>
+#include <map>
+#include <sstream>
 
 #ifndef PARSE_HPP
 #define PARSE_HPP
 
 class parser
 {
+  std::map<int, std::string> token_names;
   std::vector<token *> line;
   int index;
   token* match(token_kind);
   token* match_if(token_kind);
-  token* require(token_kind);
   token* consume();
   int look_ahead();
   bool end_of_file() const;

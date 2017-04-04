@@ -10,7 +10,6 @@
 #include <vector>
 #include <iostream>
 #include <string>
-#include <map>
 
 //Extracts the variables and expression type from the tokens of the line
 void calculate(std::vector<token *>);
