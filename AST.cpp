@@ -70,7 +70,7 @@ MoreThanOrEqualTo_expr::MoreThanOrEqualTo_expr(expr *expression1, expr *expressi
 
 Conditional_expr::Conditional_expr(expr *expression1, expr *expression2, expr *expression3) : e1(expression1), e2(expression2), e3(expression3), expr_type(&cxt.boolean)
 {
-    assert(check(cxt, expression1) == &cxt.boolean && check(cxt, expression2) == &cxt.boolean && check(cxt, expression3) == &cxt.boolean);
+    assert(check(cxt, expression1) == &cxt.boolean);
 }
 
 Integer_expr::Integer_expr(int integer) : val(integer), expr_type(&cxt.integer) {}
