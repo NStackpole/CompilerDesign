@@ -25,16 +25,20 @@ true && false
 true & false
 
 #condition test (wont evaluate)
-1 > 2 ? 2+6 : 2*4
+1 > 2 ? 2+4 : 2*4
+3 > 2 ? 2+4 : 2*4
 
 #equals, not equals, and not tests
 !false
 true == false
+true == true
+false == true
 true != false
 
 #Greater than tests
 1 > 2
 2 > 2
+3>2
 
 #Greater than or equals tests
 2 >= 2
@@ -49,3 +53,6 @@ true != false
 3 <= 4
 3 <= 3
 3 <= 2
+
+#Error handeling test
+3 <> 4
