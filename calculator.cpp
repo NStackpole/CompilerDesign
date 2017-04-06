@@ -52,7 +52,10 @@ void calculate(std::vector<token *> line_tokens)
 {
     parser p(line_tokens);
     expr* current_expression = p.parse();
-    std::cout << "Evaluation: " << eval(current_expression) << "\n";
+    if(current_expression != nullptr)
+        std::cout << "Evaluation: " << eval(current_expression) << "\n";
+    else
+        std::cout << "Could not be evaluated.\n";
 }
 
 //Creates a lexer object with the line that was passed in and creates tokens. The name and attribute of each token are then printed out.
