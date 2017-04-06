@@ -31,9 +31,7 @@ token *parser::match(token_kind k)
         return consume();
     else
     {
-        std::stringstream ss;
-        ss << "expected '" << token_names.at(k) << '\'';
-        throw(ss.str().c_str());
+        throw "expected '" + token_names.at(k) + "\'\n";;
     }
 }
 
@@ -50,36 +48,37 @@ expr *parser::parse()
 
     //An unordered_map used for printing out token names.
 
-    token_names[0] = "False token";
-    token_names[1] = "True token";
-    token_names[2] = "Left Parenth token";
-    token_names[3] = "Right Parenth token";
-    token_names[4] = "Plus token";
-    token_names[5] = "Minus token";
-    token_names[6] = "Star token";
-    token_names[7] = "Slash token";
-    token_names[8] = "Percent token";
-    token_names[9] = "Less Than token";
-    token_names[10] = "Less Than Or Equal token";
-    token_names[11] = "More Than token";
-    token_names[12] = "More Than Or Equal token";
-    token_names[13] = "Integer token";
-    token_names[14] = "Pipe token";
-    token_names[15] = "Ampersand token";
-    token_names[16] = "Or token";
-    token_names[17] = "And token";
-    token_names[18] = "Bang token";
-    token_names[19] = "Not Equals token";
-    token_names[20] = "Equals token";
-    token_names[21] = "Conditional token";
-    token_names[22] = "Otherwise token";
+    token_names[0] = "False";
+    token_names[1] = "True";
+    token_names[2] = "(";
+    token_names[3] = ")";
+    token_names[4] = "+";
+    token_names[5] = "-";
+    token_names[6] = "*";
+    token_names[7] = "/";
+    token_names[8] = "%";
+    token_names[9] = "<";
+    token_names[10] = "<=";
+    token_names[11] = ">";
+    token_names[12] = ">=";
+    token_names[13] = "Integer";
+    token_names[14] = "|";
+    token_names[15] = "&";
+    token_names[16] = "||";
+    token_names[17] = "&&";
+    token_names[18] = "!";
+    token_names[19] = "!=";
+    token_names[20] = "==";
+    token_names[21] = "?";
+    token_names[22] = ":";
 
     try
     {
         return expression();
     }
-    catch (const char *error)
+    catch (std::string error)
     {
+        std::cerr << "\nException Caught In Parsing: \n";
         std::cerr << error << "\n";
         return nullptr;
     }
@@ -288,5 +287,5 @@ expr *parser::primary_expression()
     default:
         break;
     }
-    throw("primary expression excpeted\n");
+    throw std::string("primary expression excpeted\n");
 }
