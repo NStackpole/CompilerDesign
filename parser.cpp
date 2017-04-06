@@ -48,7 +48,7 @@ token *parser::match_if(token_kind k)
 expr *parser::parse()
 {
 
-    //A map used for printing out token names.
+    //An unordered_map used for printing out token names.
 
     token_names[0] = "False token";
     token_names[1] = "True token";

@@ -4,7 +4,7 @@
 #include "AST.hpp"
 #include <iostream>
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <sstream>
 
 #ifndef PARSE_HPP
@@ -12,7 +12,7 @@
 
 class parser
 {
-  std::map<int, std::string> token_names;
+  std::unordered_map<int, std::string> token_names;
   std::vector<token *> line;
   int index;
   token* match(token_kind);

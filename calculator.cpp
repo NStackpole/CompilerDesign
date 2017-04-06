@@ -5,8 +5,8 @@
 int main(int argc, char *argv[])
 {
 
-    //A map used for printing out token names.
-    std::map<int, std::string> token_names;
+    //An unordered_map used for printing out token names.
+    std::unordered_map<int, std::string> token_names;
     token_names[0] = "False token";
     token_names[1] = "True token";
     token_names[2] = "Left Parenth token";
@@ -56,7 +56,7 @@ void calculate(std::vector<token *> line_tokens)
 }
 
 //Creates a lexer object with the line that was passed in and creates tokens. The name and attribute of each token are then printed out.
-std::vector<token *> lex_line(char *line, std::map<int, std::string> &token_names)
+std::vector<token *> lex_line(char *line, std::unordered_map<int, std::string> &token_names)
 {
     std::vector<token *> tokens;
     lexer line_lexer = lexer(line);
