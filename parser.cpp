@@ -271,6 +271,8 @@ expr *parser::primary_expression()
     {
     case int_tok:
         return new Integer_expr(std::stoi(consume()->value));
+    case id_tok:
+        return id_expression();
     case L_parenth_tok:
     {
         consume();
@@ -288,4 +290,17 @@ expr *parser::primary_expression()
         break;
     }
     throw std::string("primary expression excpeted\n");
+}
+
+expr* parser::id_expression()
+{
+    symbol* id = identifier();
+    return nullptr;
+}
+
+symbol* parser::identifier()
+{
+    token* id = match(id_tok);
+    symbol* sym = &id->value;
+    return sym;
 }
