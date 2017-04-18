@@ -53,6 +53,16 @@ char lexer::look_ahead() const
         return *first;
 }
 
+bool lexer::match_letter(char c)
+{
+    return (std::isalpha(c) || c == '_');
+}
+
+bool lexer::match_letter_digit(char c)
+{
+    return (std::isdigit(c) || std::isalpha(c) || c == '_');
+}
+
 token *lexer::next()
 {
     buffer.clear();
@@ -181,7 +191,17 @@ token *lexer::next()
             if(buffer == "false")
                 return new token(false_tok, buffer);
             break;
+        default:
+            if(match_letter(look_ahead()))
+                return word();
         }
     }
+    return nullptr;
+}
+
+token* lexer::word()
+{
+    while(first != last && match_letter_digit(look_ahead()))
+        consume();
     return nullptr;
 }
