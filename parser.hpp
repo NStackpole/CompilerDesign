@@ -2,13 +2,20 @@
 
 #include "lexer.hpp"
 #include "AST.hpp"
+#include "decl.hpp"
+#include "statement.hpp"
+#include "symbol.hpp"
+
 #include <iostream>
 #include <vector>
 #include <unordered_map>
-#include <sstream>
 
 #ifndef PARSE_HPP
 #define PARSE_HPP
+
+struct stmt;
+struct decl;
+
 
 class parser
 {
@@ -35,6 +42,8 @@ public:
   expr* logical_and_expression();
   expr* logical_or_expression();
   expr* conditional_expression();
+
+  symbol* identifier();
 };
 
 #endif
