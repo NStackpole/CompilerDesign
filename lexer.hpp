@@ -5,12 +5,15 @@
 
 #include <string>
 #include <cstring>
+#include "symbol.hpp"
 
 struct token
 {
     int name;
     std::string value;
     token(int, std::string);
+    token(int, symbol*&);
+    token(int);
     token();
 };
 
@@ -22,6 +25,11 @@ struct integer_token : public token
 struct boolean_token : public token
 {
     boolean_token(int);
+};
+
+struct id_token : public token
+{
+    id_token(symbol *);
 };
 
 enum token_kind
@@ -48,7 +56,8 @@ enum token_kind
     not_eq_tok,
     eq_tok,
     conditional_tok,
-    otherwise_tok
+    otherwise_tok,
+    id_tok
 };
 
 class lexer
@@ -57,14 +66,14 @@ class lexer
     const char *last;
     std::string buffer;
 
-public:
-    lexer(char*);
+  public:
+    lexer(char *);
 
     bool end_of_file() const;
     char look_ahead() const;
     void consume();
     void ignore();
-    token* next();
+    token *next();
 };
 
 #endif
