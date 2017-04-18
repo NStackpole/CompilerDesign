@@ -66,13 +66,16 @@ class lexer
     const char *last;
     std::string buffer;
 
-  public:
-    lexer(char *);
-
     bool end_of_file() const;
     char look_ahead() const;
     void consume();
     void ignore();
+    token *word();
+    bool match_letter(char);
+    bool match_letter_digit(char);
+
+  public:
+    lexer(char *);
     token *next();
 };
 
