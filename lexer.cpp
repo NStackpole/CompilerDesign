@@ -7,6 +7,8 @@ lexer::lexer(char *line) : first(line), last(&line[std::strlen(line)])
 }
 
 token::token(int n, std::string s) : name(n), value(s) {}
+token::token(int n, symbol*& S) : name(n), value(*S) {}
+token::token(int n) : name(n) {}
 token::token() {}
 
 integer_token::integer_token(std::string n)
@@ -23,6 +25,8 @@ boolean_token::boolean_token(int n)
     else if (n == 1)
         value = "true";
 };
+
+id_token::id_token(symbol *S) : token(id_tok, S) {}
 
 bool lexer::end_of_file() const { return first == last; }
 
