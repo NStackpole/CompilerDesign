@@ -18,6 +18,10 @@ add_executable(calc
   type_check.cpp
   lexer.cpp
   parser.cpp
+  symbol.cpp
+  decl.cpp
+  scope.cpp
+  statement.cpp
   )
 
 set(files AST.cpp test.cpp eval.cpp type_check.cpp lexer.cpp)
