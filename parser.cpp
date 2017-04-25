@@ -31,7 +31,7 @@ token *parser::match(token_kind k)
         return consume();
     else
     {
-        throw "expected '" + token_names.at(k) + "\'\n";;
+        throw "expected '" + token_names.at(k) + "\'\n";
     }
 }
 
@@ -286,21 +286,27 @@ expr *parser::primary_expression()
     case false_tok:
         consume();
         return new Bool_expr(false);
+    case true_key:
+        consume();
+        return new Bool_expr(true);
+    case false_key:
+        consume();
+        return new Bool_expr(false);
     default:
         break;
     }
     throw std::string("primary expression excpeted\n");
 }
 
-expr* parser::id_expression()
+expr *parser::id_expression()
 {
-    symbol* id = identifier();
+    symbol *id = identifier();
     return nullptr;
 }
 
-symbol* parser::identifier()
+symbol *parser::identifier()
 {
-    token* id = match(id_tok);
-    symbol* sym = &id->value;
+    token *id = match(id_tok);
+    symbol *sym = &id->value;
     return sym;
 }
