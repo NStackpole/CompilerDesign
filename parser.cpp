@@ -2,7 +2,7 @@
 
 #include "parser.hpp"
 
-parser::parser(std::vector<token *> tokens) : line(tokens), index(0) {}
+parser::parser(std::vector<token *> &tokens, symbol_table *S) : line(tokens), symbols(S), index(0) {}
 
 bool parser::end_of_file() const
 {
@@ -374,6 +374,7 @@ expr *parser::primary_expression()
 expr *parser::id_expression()
 {
     symbol *id = identifier();
+    id = symbols->find(*id);
     return nullptr;
 }
 

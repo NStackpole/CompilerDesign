@@ -15,10 +15,11 @@
 
 class parser
 {
+  int index;
+  symbol_table *symbols;
   std::unordered_map<int, std::string> token_names;
   std::vector<token *> line;
   expr *statement_seq();
-  int index;
   token *match(token_kind);
   token *match_if(token_kind);
   token *require(token_kind);
@@ -27,7 +28,7 @@ class parser
   bool end_of_file() const;
 
 public:
-  parser(std::vector<token *>);
+  parser(std::vector<token *> &, symbol_table *);
   expr *expression();
   expr *additive_expression();
   expr *multiplicative_expression();
