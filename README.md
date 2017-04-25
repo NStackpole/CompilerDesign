@@ -11,6 +11,7 @@ This language currently:
 
 TODO:
 * Implement expression printing
+* Implement variable declaration parsing
 
 #### File Descriptions:
 
