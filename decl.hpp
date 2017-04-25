@@ -15,7 +15,8 @@ struct decl
 struct var_decl : decl
 {
     var_decl(symbol *n, type *t);
-
+    var_decl();
+    
     symbol *name;
     type *typ;
     expr *init;
