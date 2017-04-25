@@ -5,32 +5,8 @@
 
 #include <string>
 #include <cstring>
+#include <iostream>
 #include "symbol.hpp"
-
-struct token
-{
-    int name;
-    std::string value;
-    token(int, std::string);
-    token(int, symbol*&);
-    token(int);
-    token();
-};
-
-struct integer_token : public token
-{
-    integer_token(std::string);
-};
-
-struct boolean_token : public token
-{
-    boolean_token(int);
-};
-
-struct id_token : public token
-{
-    id_token(symbol *);
-};
 
 enum token_kind
 {
@@ -57,7 +33,45 @@ enum token_kind
     eq_tok,
     conditional_tok,
     otherwise_tok,
-    id_tok
+    id_tok,
+    assign_tok,
+
+    //keywords
+    true_key,
+    false_key,
+    bool_key,
+    int_key,
+    var_key
+};
+
+struct token
+{
+    int name;
+    std::string value;
+    token(int, std::string);
+    token(int, symbol*);
+    token(int);
+    token();
+};
+
+struct integer_token : public token
+{
+    integer_token(std::string);
+};
+
+struct boolean_token : public token
+{
+    boolean_token(int);
+};
+
+struct id_token : public token
+{
+    id_token(symbol *);
+};
+
+struct keyword_table : std::unordered_map<std::string, token_kind>
+{
+    keyword_table();
 };
 
 class lexer
@@ -65,6 +79,8 @@ class lexer
     const char *first;
     const char *last;
     std::string buffer;
+    const keyword_table *keywords;
+    symbol_table *symbols;
 
     bool end_of_file() const;
     char look_ahead() const;
@@ -75,7 +91,7 @@ class lexer
     bool match_letter_digit(char);
 
   public:
-    lexer(char *);
+    lexer(char *, keyword_table *, symbol_table *);
     token *next();
 };
 

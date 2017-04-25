@@ -2,12 +2,21 @@
 
 #include "lexer.hpp"
 
-lexer::lexer(char *line) : first(line), last(&line[std::strlen(line)])
+lexer::lexer(char *line, keyword_table *kw, symbol_table *syms) : first(line), last(&line[std::strlen(line)]), keywords(kw), symbols(syms)
 {
 }
 
+keyword_table::keyword_table()
+{
+    insert({"false", false_key});
+    insert({"true", true_key});
+    insert({"var", var_key});
+    insert({"int", int_key});
+    insert({"bool", bool_key});
+}
+
 token::token(int n, std::string s) : name(n), value(s) {}
-token::token(int n, symbol*& S) : name(n), value(*S) {}
+token::token(int n, symbol *S) : name(n), value(*S) {}
 token::token(int n) : name(n) {}
 token::token() {}
 
@@ -24,7 +33,7 @@ boolean_token::boolean_token(int n)
         value = "false";
     else if (n == 1)
         value = "true";
-};
+}
 
 id_token::id_token(symbol *S) : token(id_tok, S) {}
 
@@ -113,7 +122,7 @@ token *lexer::next()
             break;
         case '!':
             consume();
-            if(look_ahead() == '=')
+            if (look_ahead() == '=')
             {
                 consume();
                 return new token(not_eq_tok, buffer);
@@ -122,10 +131,16 @@ token *lexer::next()
             break;
         case '=':
             consume();
-            if(look_ahead() == '=')
+            if (look_ahead() == '=')
             {
                 consume();
                 return new token(eq_tok, buffer);
+            }
+            
+            else
+            {
+                std::cout<<"assign_tok\n";
+                return new token(assign_tok, buffer);
             }
             break;
         case '?':
@@ -174,34 +189,33 @@ token *lexer::next()
 
             return new integer_token(buffer);
             break;
-        case 't':
-            consume();
-            consume();
-            consume();
-            consume();
-            if(buffer == "true")
-                return new token(true_tok, buffer);
-            break;
-        case 'f':
-            consume();
-            consume();
-            consume();
-            consume();
-            consume();
-            if(buffer == "false")
-                return new token(false_tok, buffer);
-            break;
         default:
-            if(match_letter(look_ahead()))
+            if (match_letter(look_ahead()))
                 return word();
+            else 
+                return nullptr;
         }
     }
     return nullptr;
 }
 
-token* lexer::word()
+token *lexer::word()
 {
-    while(first != last && match_letter_digit(look_ahead()))
+    consume();
+    while (!end_of_file() && match_letter_digit(look_ahead()))
         consume();
+
+    auto key = keywords->find(buffer);
+
+    if (key != keywords->end())
+    {
+        token *new_tok = new token(key->second);
+        return new_tok;
+    }
+
+    symbol *new_symbol = symbols->insert(buffer);
+    token *new_tok = new id_token(new_symbol);
+    return new_tok;
+
     return nullptr;
 }
