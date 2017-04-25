@@ -4,8 +4,8 @@
 
 symbol *symbol_table::find(const std::string &str)
 {
-
-    return nullptr;
+    auto result = symbols.insert({str,nullptr});
+    return &result.first->first;
 }
 
 symbol *symbol_table::insert(const std::string &str)
