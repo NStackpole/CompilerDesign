@@ -43,6 +43,12 @@ token *parser::match_if(token_kind k)
         return nullptr;
 }
 
+token *parser::require(token_kind k)
+{
+    assert(look_ahead() == k);
+    return consume();
+}
+
 expr *parser::parse()
 {
 
@@ -74,7 +80,7 @@ expr *parser::parse()
 
     try
     {
-        return expression();
+        return statement_seq();
     }
     catch (std::string error)
     {
@@ -82,6 +88,73 @@ expr *parser::parse()
         std::cerr << error << "\n";
         return nullptr;
     }
+}
+
+expr *parser::statement_seq()
+{
+    return stmt();
+}
+
+expr *parser::stmt()
+{
+    switch (look_ahead())
+    {
+    case var_key:
+        return declaration_statement()->entity->init;
+    default:
+        return expression_statement()->expression;
+    }
+}
+
+decl_statement *parser::declaration_statement()
+{
+    decl *d = declaration();
+    return new decl_statement(d);
+}
+
+expr_statement *parser::expression_statement()
+{
+    expr *e = expression();
+    return new expr_statement(e);
+}
+
+decl *parser::declaration()
+{
+    switch (look_ahead())
+    {
+    case var_key:
+        return variable_declaration();
+    default:
+        break;
+    }
+    throw std::string("Expected declaration\n");
+}
+
+decl *parser::variable_declaration()
+{
+    require(var_key);
+    type *t = type_specifier();
+    symbol *n = identifier();
+    var_decl *var = new var_decl();
+    match(assign_tok);
+    expr *e = expression();
+    var->init = e;
+    return var;
+}
+
+type *parser::type_specifier()
+{
+    switch (look_ahead())
+    {
+    case bool_key:
+        consume();
+        return new bool_type();
+    case int_key:
+        consume();
+        return new integer_type();
+    }
+
+    throw std::string("Expected type specifier\n");
 }
 
 expr *parser::expression()
