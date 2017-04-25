@@ -215,6 +215,4 @@ token *lexer::word()
     symbol *new_symbol = symbols->insert(buffer);
     token *new_tok = new id_token(new_symbol);
     return new_tok;
-
-    return nullptr;
 }
