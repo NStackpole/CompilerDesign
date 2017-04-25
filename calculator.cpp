@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
         std::vector<token *> line_tokens = lex_line(line, token_names, keywords, symbols);
 
         if (line_tokens.size() > 1)
-            calculate(line_tokens);
+            calculate(line_tokens, symbols);
 
         std::cout << "\n";
     }
@@ -58,9 +58,9 @@ int main(int argc, char *argv[])
 //Finds the variables in a line and expression type. Will probably be replaced when the parser is complete.
 //Only works for one expression per line and does not work with conditional expressions.
 //If an expression cannot be evaluated it is simply skipped.
-void calculate(std::vector<token *> line_tokens)
+void calculate(std::vector<token *> &line_tokens, symbol_table *symbols)
 {
-    parser p(line_tokens);
+    parser p(line_tokens, symbols);
     expr *current_expression = p.parse();
     if (current_expression != nullptr)
         std::cout << "Evaluation: " << eval(current_expression) << "\n";
