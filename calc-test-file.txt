@@ -54,6 +54,9 @@ true != false
 3 <= 3
 3 <= 2
 
+#Decl test
+var int x = 4;
+
 #Error handeling test
 (3+4
 (6 * 4 ()
