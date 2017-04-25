@@ -9,6 +9,7 @@
 
 struct decl
 {
+    expr *init;
     virtual ~decl() = default;
 };
 
@@ -16,10 +17,10 @@ struct var_decl : decl
 {
     var_decl(symbol *n, type *t);
     var_decl();
-    
+
     symbol *name;
     type *typ;
-    expr *init;
+    
 };
 
 #endif
