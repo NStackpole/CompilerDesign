@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
     token_names[int_key] = "int keyword";
     token_names[var_key] = "var keyword";
     token_names[assign_tok] = "Assignment token";
+    token_names[id_tok] = "Identifier token";
 
     keyword_table *keywords = new keyword_table();
     symbol_table *symbols = new symbol_table();
@@ -79,7 +80,7 @@ std::vector<token *> lex_line(char *line, std::unordered_map<int, std::string> &
         tokens.push_back(current_token);
         current_token = line_lexer.next();
     }
-
+    
     for (int i = 0; i < tokens.size(); ++i)
     {
         std::cout << tokens[i]->name << " -> " << token_names[tokens[i]->name] << " -> " << tokens[i]->value << "\n";
