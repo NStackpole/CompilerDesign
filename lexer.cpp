@@ -139,7 +139,6 @@ token *lexer::next()
             
             else
             {
-                std::cout<<"assign_tok\n";
                 return new token(assign_tok, buffer);
             }
             break;

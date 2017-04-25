@@ -5,7 +5,6 @@
 
 #include <string>
 #include <cstring>
-#include <iostream>
 #include "symbol.hpp"
 
 enum token_kind
