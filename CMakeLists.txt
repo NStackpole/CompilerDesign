@@ -8,7 +8,6 @@ add_executable(compiler-test
   AST.cpp
   eval.cpp
   type_check.cpp
-  lexer.cpp
 	)
   
 add_executable(calc
