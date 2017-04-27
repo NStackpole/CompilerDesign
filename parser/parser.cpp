@@ -1,6 +1,7 @@
 //Nathan Stackpole, 2017
 
 #include "parser.hpp"
+#include "../AST/eval.hpp"
 
 parser::parser(std::vector<token *> &tokens, symbol_table *S, std::stack<scope *> scopes) : line(tokens), symbols(S), scope_stack(scopes), index(0) {}
 
@@ -135,10 +136,12 @@ decl *parser::variable_declaration()
     require(var_key);
     type *t = type_specifier();
     symbol *n = identifier();
-    var_decl *var = new var_decl();
+    symbols->insert(*n);
+    decl *var = new decl();
     match(assign_tok);
     expr *e = expression();
     var->init = e;
+    scope_stack.top()->insert(*n,var);
     return var;
 }
 
@@ -374,8 +377,12 @@ expr *parser::primary_expression()
 expr *parser::id_expression()
 {
     symbol *id = identifier();
+    std::cout<<"Identifier: " << *id << "\n";
     id = symbols->find(*id);
-    return nullptr;
+    std::cout<<"symbol: " << *id << "\n";
+    std::cout<<scope_stack.size()<<"\n";
+    decl* d = scope_stack.top()->find(*id);
+    return d->init;
 }
 
 symbol *parser::identifier()
