@@ -1,8 +1,8 @@
 //Nathan Stackpole, 2017
 
 #include <vector>
-#include "AST.hpp"
-#include "symbol.hpp"
+#include "../AST/AST.hpp"
+#include "../lexer/symbol.hpp"
 
 #ifndef DECL_HPP
 #define DECL_HPP

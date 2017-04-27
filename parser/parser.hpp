@@ -1,10 +1,10 @@
 //Nathan Stackpole, 2017
 
-#include "lexer.hpp"
-#include "AST.hpp"
+#include "../lexer/lexer.hpp"
+#include "../AST/AST.hpp"
 #include "decl.hpp"
 #include "statement.hpp"
-#include "symbol.hpp"
+#include "../lexer/symbol.hpp"
 
 #include <iostream>
 #include <vector>

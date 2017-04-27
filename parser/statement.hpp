@@ -1,7 +1,7 @@
 //Nathan Stackpole, 2017
 
 #include "decl.hpp"
-#include "AST.hpp"
+#include "../AST/AST.hpp"
 
 #ifndef STMT_HPP
 #define STMT_HPP

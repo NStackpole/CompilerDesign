@@ -5,23 +5,23 @@ set(CMAKE_CXX_FLAGS "-std=c++11")
 
 add_executable(AST-test
 	test.cpp
-  AST.cpp
-  eval.cpp
-  type_check.cpp
+  AST/AST.cpp
+  AST/eval.cpp
+  AST/type_check.cpp
 	)
   
 add_executable(calc
   calculator.cpp
-  AST.cpp
-  eval.cpp
-  type_check.cpp
-  lexer.cpp
-  parser.cpp
-  symbol.cpp
-  decl.cpp
-  scope.cpp
-  statement.cpp
-  token.cpp
+  AST/AST.cpp
+  AST/eval.cpp
+  AST/type_check.cpp
+  lexer/lexer.cpp
+  parser/parser.cpp
+  lexer/symbol.cpp
+  parser/decl.cpp
+  parser/scope.cpp
+  parser/statement.cpp
+  lexer/token.cpp
   )
 
 set(files AST.cpp test.cpp eval.cpp type_check.cpp lexer.cpp)

@@ -3,10 +3,10 @@
 #ifndef CALC_HPP
 #define CALC_HPP
 
-#include "lexer.hpp"
-#include "parser.hpp"
-#include "AST.hpp"
-#include "eval.hpp"
+#include "lexer/lexer.hpp"
+#include "parser/parser.hpp"
+#include "AST/AST.hpp"
+#include "AST/eval.hpp"
 #include <vector>
 #include <iostream>
 #include <string>
