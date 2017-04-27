@@ -41,6 +41,7 @@ int main(int argc, char *argv[])
     keyword_table *keywords = new keyword_table();
     symbol_table *symbols = new symbol_table();
     std::stack<scope *> scopes;
+    scopes.push(new scope());
 
     //Read in a line at a time, create tokens from it, turn those tokens into expressions that are then evaluated.
     char line[256];
@@ -49,7 +50,7 @@ int main(int argc, char *argv[])
         std::cout << line << "\n";
         std::vector<token *> line_tokens = lex_line(line, token_names, keywords, symbols);
 
-        if (line_tokens.size() > 1)
+        if (line_tokens.size() >= 1)
             calculate(line_tokens, symbols, scopes);
 
         std::cout << "\n";
