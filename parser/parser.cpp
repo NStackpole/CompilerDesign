@@ -141,6 +141,15 @@ decl *parser::variable_declaration()
     match(assign_tok);
     expr *e = expression();
     var->init = e;
+
+    // If the variable is in the scope already, overwrite the decl mapped to the symbol
+    if (scope_stack.top()->find(*n) != nullptr)
+    {
+        scope_stack.top()->modify(*n, var);
+        return var;
+    }
+    
+    // If not already in the scope, insert into the scope.
     scope_stack.top()->insert(*n,var);
     return var;
 }
@@ -377,10 +386,7 @@ expr *parser::primary_expression()
 expr *parser::id_expression()
 {
     symbol *id = identifier();
-    std::cout<<"Identifier: " << *id << "\n";
     id = symbols->find(*id);
-    std::cout<<"symbol: " << *id << "\n";
-    std::cout<<scope_stack.size()<<"\n";
     decl* d = scope_stack.top()->find(*id);
     return d->init;
 }
