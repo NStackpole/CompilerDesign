@@ -10,11 +10,11 @@
 
 struct scope
 {
-    void insert(symbol*, decl*);
+    void insert(std::string, decl*);
 
-    decl* find(symbol*);
+    decl* find(std::string);
 
-    std::unordered_map<symbol*, decl*> map;
+    std::unordered_map<std::string, decl*> map;
 };
 
 

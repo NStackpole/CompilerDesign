@@ -2,12 +2,12 @@
 
 #include "scope.hpp"
 
-void scope::insert(symbol *s, decl *d)
+void scope::insert(std::string s, decl *d)
 {
     map.insert({s, d});
 }
 
-decl *scope::find(symbol *s)
+decl *scope::find(std::string s)
 {
     auto iter = map.find(s);
     if(iter != map.end())
