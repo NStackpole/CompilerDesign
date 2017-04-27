@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
 
     keyword_table *keywords = new keyword_table();
     symbol_table *symbols = new symbol_table();
+    std::stack<scope *> scopes;
 
     //Read in a line at a time, create tokens from it, turn those tokens into expressions that are then evaluated.
     char line[256];
@@ -49,7 +50,7 @@ int main(int argc, char *argv[])
         std::vector<token *> line_tokens = lex_line(line, token_names, keywords, symbols);
 
         if (line_tokens.size() > 1)
-            calculate(line_tokens, symbols);
+            calculate(line_tokens, symbols, scopes);
 
         std::cout << "\n";
     }
@@ -58,9 +59,9 @@ int main(int argc, char *argv[])
 //Finds the variables in a line and expression type. Will probably be replaced when the parser is complete.
 //Only works for one expression per line and does not work with conditional expressions.
 //If an expression cannot be evaluated it is simply skipped.
-void calculate(std::vector<token *> &line_tokens, symbol_table *symbols)
+void calculate(std::vector<token *> &line_tokens, symbol_table *symbols, std::stack<scope *> &scopes)
 {
-    parser p(line_tokens, symbols);
+    parser p(line_tokens, symbols, scopes);
     expr *current_expression = p.parse();
     if (current_expression != nullptr)
         std::cout << "Evaluation: " << eval(current_expression) << "\n";
