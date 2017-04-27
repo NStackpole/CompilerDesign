@@ -57,7 +57,8 @@ true != false
 #Decl test
 var int x = 4;
 var bool y = false;
-
+x
+x+5
 #Error handeling test
 (3+4
 (6 * 4 ()
