@@ -59,8 +59,10 @@ var int x = 4;
 var bool y = false;
 x
 x+5
-var int x = 6
+x = 6
 x+5
+x = x + 100
+x
 
 #Error handeling test
 (3+4
