@@ -10,12 +10,12 @@
 
 struct scope
 {
-    void insert(std::string, decl*);
+    void insert(std::string, decl *);
+    void modify(std::string, decl *);
+    decl *find(std::string);
 
-    decl* find(std::string);
-
-    std::unordered_map<std::string, decl*> map;
+  private:
+    std::unordered_map<std::string, decl *> map;
 };
-
 
 #endif
