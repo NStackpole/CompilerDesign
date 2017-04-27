@@ -2,7 +2,7 @@
 
 #include "parser.hpp"
 
-parser::parser(std::vector<token *> &tokens, symbol_table *S) : line(tokens), symbols(S), index(0) {}
+parser::parser(std::vector<token *> &tokens, symbol_table *S, std::stack<scope *> scopes) : line(tokens), symbols(S), scope_stack(scopes), index(0) {}
 
 bool parser::end_of_file() const
 {
