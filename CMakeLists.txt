@@ -21,6 +21,7 @@ add_executable(calc
   decl.cpp
   scope.cpp
   statement.cpp
+  token.cpp
   )
 
 set(files AST.cpp test.cpp eval.cpp type_check.cpp lexer.cpp)
