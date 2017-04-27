@@ -1,7 +1,7 @@
 //Nathan Stackpole, 2017
 
-#include <string>
 #include "symbol.hpp"
+#include <string>
 
 #ifndef TOKEN_HPP
 #define TOKEN_HPP

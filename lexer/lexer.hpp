@@ -1,12 +1,12 @@
 //Nathan Stackpole, 2017
 
-#ifndef LEX_HPP
-#define LEX_HPP
-
-#include <string>
-#include <cstring>
 #include "symbol.hpp"
 #include "token.hpp"
+#include <string>
+#include <cstring>
+
+#ifndef LEX_HPP
+#define LEX_HPP
 
 class lexer
 {
