@@ -1,8 +1,8 @@
 //Nathan Stackpole, 2017
 
-#include <iostream>
-
 #include "AST/eval.hpp"
+
+#include <iostream>
 #include <limits>
 
 int main()
