@@ -64,6 +64,15 @@ x+5
 x = x + 100
 x
 
+j = x
+
+var int j = x
+j-x
+
+!y
+
+y || true
+
 #Error handeling test
 (3+4
 (6 * 4 ()

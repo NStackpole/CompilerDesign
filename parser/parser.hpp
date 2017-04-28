@@ -44,6 +44,7 @@ public:
   expr *logical_and_expression();
   expr *logical_or_expression();
   expr *conditional_expression();
+  expr* assignment_expression();
 
   expr *stmt();
   decl_statement *declaration_statement();

@@ -55,29 +55,36 @@ expr *parser::parse()
 
     //An unordered_map used for printing out token names.
 
-    token_names[0] = "False";
-    token_names[1] = "True";
-    token_names[2] = "(";
-    token_names[3] = ")";
-    token_names[4] = "+";
-    token_names[5] = "-";
-    token_names[6] = "*";
-    token_names[7] = "/";
-    token_names[8] = "%";
-    token_names[9] = "<";
-    token_names[10] = "<=";
-    token_names[11] = ">";
-    token_names[12] = ">=";
-    token_names[13] = "Integer";
-    token_names[14] = "|";
-    token_names[15] = "&";
-    token_names[16] = "||";
-    token_names[17] = "&&";
-    token_names[18] = "!";
-    token_names[19] = "!=";
-    token_names[20] = "==";
-    token_names[21] = "?";
-    token_names[22] = ":";
+    token_names[false_tok] = "False token";
+    token_names[true_tok] = "True token";
+    token_names[L_parenth_tok] = "Left Parenth token";
+    token_names[R_parenth_tok] = "Right Parenth token";
+    token_names[plus_tok] = "Plus token";
+    token_names[minus_tok] = "Minus token";
+    token_names[star_tok] = "Star token";
+    token_names[slash_tok] = "Slash token";
+    token_names[percent_tok] = "Percent token";
+    token_names[less_than_tok] = "Less Than token";
+    token_names[less_than_eq_tok] = "Less Than Or Equal token";
+    token_names[more_than_tok] = "More Than token";
+    token_names[more_than_eq_tok] = "More Than Or Equal token";
+    token_names[int_tok] = "Integer token";
+    token_names[pipe_tok] = "Pipe token";
+    token_names[amp_tok] = "Ampersand token";
+    token_names[or_tok] = "Or token";
+    token_names[and_tok] = "And token";
+    token_names[bang_tok] = "Bang token";
+    token_names[not_eq_tok] = "Not Equals token";
+    token_names[eq_tok] = "Equals token";
+    token_names[conditional_tok] = "Conditional token";
+    token_names[otherwise_tok] = "Otherwise token";
+    token_names[true_key] = "True keyword";
+    token_names[false_key] = "False keyword";
+    token_names[bool_key] = "bool keyword";
+    token_names[int_key] = "int keyword";
+    token_names[var_key] = "var keyword";
+    token_names[assign_tok] = "Assignment token";
+    token_names[id_tok] = "Identifier token";
 
     try
     {
@@ -102,9 +109,31 @@ expr *parser::stmt()
     {
     case var_key:
         return declaration_statement()->entity->init;
+    case id_tok:
+        if(line[index+1]->name == assign_tok)
+            return assignment_expression();
     default:
         return expression_statement()->expression;
     }
+}
+
+expr *parser::assignment_expression()
+{
+    symbol *id = identifier();
+    id = symbols->find(*id);
+    match(assign_tok);
+
+    // If the variable is in the scope already, overwrite the decl mapped to the symbol
+    if (scope_stack.top()->find(*id) != nullptr)
+    {
+        decl *var = new decl();
+        expr *e = expression();
+        var->init = e;
+        scope_stack.top()->modify(*id, var);
+        std::cout<<eval(e);
+        return e;
+    }
+    throw std::string(*id + " not declared");
 }
 
 decl_statement *parser::declaration_statement()
@@ -376,24 +405,9 @@ expr *parser::primary_expression()
 
 expr *parser::id_expression()
 {
-
     symbol *id = identifier();
     id = symbols->find(*id);
     decl *d = scope_stack.top()->find(*id);
-    
-    if (match_if(assign_tok))
-    {      
-        // If the variable is in the scope already, overwrite the decl mapped to the symbol
-        if (scope_stack.top()->find(*id) != nullptr)
-        {
-            decl *var = new decl();
-            expr *e = expression();
-            var->init = e;
-            scope_stack.top()->modify(*id, var);
-            return e;
-        }
-    }
-
     return d->init;
 }
 
