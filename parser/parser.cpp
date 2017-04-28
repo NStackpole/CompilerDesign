@@ -55,35 +55,35 @@ expr *parser::parse()
 
     //An unordered_map used for printing out token names.
 
-    token_names[false_tok] = "False token";
-    token_names[true_tok] = "True token";
-    token_names[L_parenth_tok] = "Left Parenth token";
-    token_names[R_parenth_tok] = "Right Parenth token";
-    token_names[plus_tok] = "Plus token";
-    token_names[minus_tok] = "Minus token";
-    token_names[star_tok] = "Star token";
-    token_names[slash_tok] = "Slash token";
-    token_names[percent_tok] = "Percent token";
-    token_names[less_than_tok] = "Less Than token";
-    token_names[less_than_eq_tok] = "Less Than Or Equal token";
-    token_names[more_than_tok] = "More Than token";
-    token_names[more_than_eq_tok] = "More Than Or Equal token";
-    token_names[int_tok] = "Integer token";
-    token_names[pipe_tok] = "Pipe token";
-    token_names[amp_tok] = "Ampersand token";
-    token_names[or_tok] = "Or token";
-    token_names[and_tok] = "And token";
-    token_names[bang_tok] = "Bang token";
-    token_names[not_eq_tok] = "Not Equals token";
-    token_names[eq_tok] = "Equals token";
-    token_names[conditional_tok] = "Conditional token";
-    token_names[otherwise_tok] = "Otherwise token";
+    token_names[false_tok] = "false";
+    token_names[true_tok] = "true";
+    token_names[L_parenth_tok] = "(";
+    token_names[R_parenth_tok] = ")";
+    token_names[plus_tok] = "+";
+    token_names[minus_tok] = "-";
+    token_names[star_tok] = "*";
+    token_names[slash_tok] = "/";
+    token_names[percent_tok] = "%";
+    token_names[less_than_tok] = "<";
+    token_names[less_than_eq_tok] = "<=";
+    token_names[more_than_tok] = ">";
+    token_names[more_than_eq_tok] = ">=";
+    token_names[int_tok] = "Integer";
+    token_names[pipe_tok] = "|";
+    token_names[amp_tok] = "&";
+    token_names[or_tok] = "||";
+    token_names[and_tok] = "&&";
+    token_names[bang_tok] = "!";
+    token_names[not_eq_tok] = "!=";
+    token_names[eq_tok] = "==";
+    token_names[conditional_tok] = "?";
+    token_names[otherwise_tok] = ":";
     token_names[true_key] = "True keyword";
     token_names[false_key] = "False keyword";
     token_names[bool_key] = "bool keyword";
     token_names[int_key] = "int keyword";
     token_names[var_key] = "var keyword";
-    token_names[assign_tok] = "Assignment token";
+    token_names[assign_tok] = "=";
     token_names[id_tok] = "Identifier token";
 
     try
