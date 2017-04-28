@@ -8,11 +8,10 @@ This language currently:
 * Use lexical analysis to generate tokens from lines of text (source code)
 * Uses a parser to generate abstract syntax trees
 * Has a calculator program that accepts input through standard in. Takes input through standard input, lexes the lines, printing out the tokens as it goes, then parses them, and finally evaluates them.
-* Integer and boolean variables can be declared, but don't quite work when placed in expressions yet.
+* Integer and boolean variables can be declared.
 
 TODO:
 * Implement expression printing
-* Get variables to work in expressions
 
 #### File Descriptions:
 
