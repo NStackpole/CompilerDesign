@@ -13,7 +13,6 @@ This language currently:
 TODO:
 * Implement expression printing
 * Get variables to work in expressions
-    * Implement Scope
 
 #### File Descriptions:
 
