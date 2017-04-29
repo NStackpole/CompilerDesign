@@ -130,7 +130,6 @@ expr *parser::assignment_expression()
         expr *e = expression();
         var->init = e;
         scope_stack.top()->modify(*id, var);
-        std::cout<<eval(e);
         return e;
     }
     throw std::string(*id + " not declared");
