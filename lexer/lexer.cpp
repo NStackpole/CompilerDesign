@@ -128,6 +128,10 @@ token *lexer::next()
             consume();
             return new token(otherwise_tok, buffer);
             break;
+        case ';':
+            consume();
+            return new token(semi_col_tok, buffer);
+            break;
         case '/':
             consume();
             return new token(slash_tok, buffer);

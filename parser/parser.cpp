@@ -107,10 +107,16 @@ expr *parser::stmt()
 {
     switch (look_ahead())
     {
+    //If the var keyword was lexed then start a new declaration statement
     case var_key:
         return declaration_statement()->entity->init;
+
+    //If just an id_tok is found we want to check for an assignment statement
     case id_tok:
-        if(line[index+1]->name == assign_tok)
+        //Don't want to comnsume the id_tok in case there isnt an assign_tok ahead
+        //so we manually check if there is an assign_tok in the right spot and if so
+        // call assignment_expression()
+        if (line[index + 1]->name == assign_tok)
             return assignment_expression();
     default:
         return expression_statement()->expression;
@@ -168,6 +174,7 @@ decl *parser::variable_declaration()
     decl *var = new decl();
     match(assign_tok);
     expr *e = expression();
+    require(semi_col_tok);
     var->init = e;
     scope_stack.top()->insert(*n, var);
     return var;

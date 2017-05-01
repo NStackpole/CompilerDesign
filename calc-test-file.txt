@@ -66,7 +66,7 @@ x
 
 j = x
 
-var int j = x
+var int j = x;
 j-x
 
 !y

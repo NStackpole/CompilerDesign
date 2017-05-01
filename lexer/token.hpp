@@ -33,6 +33,7 @@ enum token_kind
     otherwise_tok,
     id_tok,
     assign_tok,
+    semi_col_tok,
 
     //keywords
     true_key,
