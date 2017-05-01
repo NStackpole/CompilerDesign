@@ -25,4 +25,13 @@ struct decl_statement : statement
     decl *entity;
 };
 
+struct if_statement : statement
+{
+    if_statement(expr *, statement *, statement *);
+
+    expr *condition;
+    statement *stmt1;
+    statement *stmt2;
+};
+
 #endif

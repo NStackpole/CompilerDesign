@@ -111,6 +111,9 @@ expr *parser::stmt()
     case var_key:
         return declaration_statement()->entity->init;
 
+    case if_key:
+        return conditional_statement();
+
     //If just an id_tok is found we want to check for an assignment statement
     case id_tok:
         //Don't want to comnsume the id_tok in case there isnt an assign_tok ahead
@@ -121,6 +124,14 @@ expr *parser::stmt()
     default:
         return expression_statement()->expression;
     }
+}
+
+expr *parser::conditional_statement()
+{
+    require(L_parenth_tok);
+    expr *e = expression();
+    require(R_parenth_tok);
+    
 }
 
 expr *parser::assignment_expression()

@@ -40,7 +40,9 @@ enum token_kind
     false_key,
     bool_key,
     int_key,
-    var_key
+    var_key,
+    if_key,
+    else_key
 };
 
 struct token

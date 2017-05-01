@@ -49,6 +49,7 @@ public:
   expr *stmt();
   decl_statement *declaration_statement();
   expr_statement *expression_statement();
+  expr *conditional_statement();
 
   decl *declaration();
   decl *variable_declaration();

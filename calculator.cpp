@@ -37,6 +37,8 @@ int main(int argc, char *argv[])
     token_names[var_key] = "var keyword";
     token_names[assign_tok] = "Assignment token";
     token_names[id_tok] = "Identifier token";
+    token_names[if_key] = "if keyword";
+    token_names[else_key] = "else keyword";
 
     keyword_table *keywords = new keyword_table();
     symbol_table *symbols = new symbol_table();

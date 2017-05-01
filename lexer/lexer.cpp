@@ -13,6 +13,9 @@ keyword_table::keyword_table()
     insert({"var", var_key});
     insert({"int", int_key});
     insert({"bool", bool_key});
+    insert({"if", if_key});
+    insert({"else", else_key});
+    
 }
 
 bool lexer::end_of_file() const { return first == last; }
@@ -186,14 +189,17 @@ token *lexer::word()
     while (!end_of_file() && match_letter_digit(look_ahead()))
         consume();
 
+    //Check the keyword map for the word
     auto key = keywords->find(buffer);
 
+    //If it is a keyword then create a new instance of a token for that keyword.
     if (key != keywords->end())
     {
         token *new_tok = new token(key->second);
         return new_tok;
     }
 
+    //If it is not a keyword, then insert it into the symbol table and return a new id_token containing that symbol.
     symbol *new_symbol = symbols->insert(buffer);
     token *new_tok = new id_token(new_symbol);
     return new_tok;

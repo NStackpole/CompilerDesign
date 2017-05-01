@@ -74,6 +74,9 @@ j-x
 y || true
 y && true
 
+if ()
+else ()
+
 #Error handeling test
 (3+4
 (6 * 4 ()
