@@ -14,7 +14,7 @@
 #include <string>
 
 //Extracts the variables and expression type from the tokens of the line
-void calculate(std::vector<token *> &, symbol_table *, std::stack<scope *> &);
+void calculate(std::vector<token *> &, symbol_table *, std::deque<scope *> &);
 
 //performs lexical analysis on a line
 std::vector<token *> lex_line(char *, std::unordered_map<int, std::string> &, keyword_table *, symbol_table *);

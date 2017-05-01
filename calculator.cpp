@@ -39,11 +39,13 @@ int main(int argc, char *argv[])
     token_names[id_tok] = "Identifier token";
     token_names[if_key] = "if keyword";
     token_names[else_key] = "else keyword";
+    token_names[L_bracket_tok] = "Left bracket token";
+    token_names[R_bracket_tok] = "Right bracket token";
 
     keyword_table *keywords = new keyword_table();
     symbol_table *symbols = new symbol_table();
-    std::stack<scope *> scopes;
-    scopes.push(new scope());
+    std::deque<scope *> scopes;
+    scopes.push_back(new scope());
 
     //Read in a line at a time, create tokens from it, turn those tokens into expressions that are then evaluated.
     char line[256];
@@ -62,7 +64,7 @@ int main(int argc, char *argv[])
 //Finds the variables in a line and expression type. Will probably be replaced when the parser is complete.
 //Only works for one expression per line and does not work with conditional expressions.
 //If an expression cannot be evaluated it is simply skipped.
-void calculate(std::vector<token *> &line_tokens, symbol_table *symbols, std::stack<scope *> &scopes)
+void calculate(std::vector<token *> &line_tokens, symbol_table *symbols, std::deque<scope *> &scopes)
 {
     parser p(line_tokens, symbols, scopes);
     expr *current_expression = p.parse();
