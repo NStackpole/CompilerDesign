@@ -10,7 +10,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
-#include <stack>
+#include <deque>
 
 #ifndef PARSE_HPP
 #define PARSE_HPP
@@ -21,7 +21,7 @@ class parser
   symbol_table *symbols;
   std::unordered_map<int, std::string> token_names;
   std::vector<token *> line;
-  std::stack<scope *> scope_stack;
+  std::deque<scope *> scope_stack;
   expr *statement_seq();
   token *match(token_kind);
   token *match_if(token_kind);
@@ -31,7 +31,7 @@ class parser
   bool end_of_file() const;
 
 public:
-  parser(std::vector<token *> &, symbol_table *, std::stack<scope *>);
+  parser(std::vector<token *> &, symbol_table *, std::deque<scope *>);
   expr *expression();
   expr *additive_expression();
   expr *multiplicative_expression();
@@ -50,6 +50,7 @@ public:
   decl_statement *declaration_statement();
   expr_statement *expression_statement();
   expr *conditional_statement();
+  expr *block_statement();
 
   decl *declaration();
   decl *variable_declaration();

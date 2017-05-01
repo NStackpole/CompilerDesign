@@ -3,7 +3,7 @@
 #include "parser.hpp"
 #include "../AST/eval.hpp"
 
-parser::parser(std::vector<token *> &tokens, symbol_table *S, std::stack<scope *> scopes) : line(tokens), symbols(S), scope_stack(scopes), index(0) {}
+parser::parser(std::vector<token *> &tokens, symbol_table *S, std::deque<scope *> scopes) : line(tokens), symbols(S), scope_stack(scopes), index(0) {}
 
 bool parser::end_of_file() const
 {
@@ -85,6 +85,10 @@ expr *parser::parse()
     token_names[var_key] = "var keyword";
     token_names[assign_tok] = "=";
     token_names[id_tok] = "Identifier token";
+    token_names[if_key] = "if keyword";
+    token_names[else_key] = "else keyword";
+    token_names[L_bracket_tok] = "{";
+    token_names[R_bracket_tok] = "}";
 
     try
     {
@@ -113,6 +117,8 @@ expr *parser::stmt()
 
     case if_key:
         return conditional_statement();
+    case L_bracket_tok:
+        return block_statement();
 
     //If just an id_tok is found we want to check for an assignment statement
     case id_tok:
@@ -128,10 +134,28 @@ expr *parser::stmt()
 
 expr *parser::conditional_statement()
 {
+    //TODO: Figure out how to do this. Maybe create a new type of scope?
+    consume();
     require(L_parenth_tok);
     expr *e = expression();
     require(R_parenth_tok);
-    
+    //statement *s1 = stmt();
+    match(else_key);
+    //statement *s2 = stmt();
+
+    return nullptr;
+}
+
+expr *parser::block_statement()
+{
+    scope_stack.push_back(new scope());
+    require(L_bracket_tok);
+    expr *e;
+    if (look_ahead() != R_bracket_tok)
+        e = statement_seq();
+    match(R_bracket_tok);
+    scope_stack.pop_back();
+    return nullptr;
 }
 
 expr *parser::assignment_expression()
@@ -140,14 +164,17 @@ expr *parser::assignment_expression()
     id = symbols->find(*id);
     match(assign_tok);
 
-    // If the variable is in the scope already, overwrite the decl mapped to the symbol
-    if (scope_stack.top()->find(*id) != nullptr)
+    // If the variable is already in scope, overwrite the decl mapped to the symbol
+    for (int i = scope_stack.size() - 1; i >= 0; --i)
     {
-        decl *var = new decl();
-        expr *e = expression();
-        var->init = e;
-        scope_stack.top()->modify(*id, var);
-        return e;
+        if (scope_stack[i]->find(*id) != nullptr)
+        {
+            decl *var = new decl();
+            expr *e = expression();
+            var->init = e;
+            scope_stack[i]->modify(*id, var);
+            return e;
+        }
     }
     throw std::string(*id + " not declared");
 }
@@ -187,7 +214,7 @@ decl *parser::variable_declaration()
     expr *e = expression();
     require(semi_col_tok);
     var->init = e;
-    scope_stack.top()->insert(*n, var);
+    scope_stack.back()->insert(*n, var);
     return var;
 }
 
@@ -424,8 +451,15 @@ expr *parser::id_expression()
 {
     symbol *id = identifier();
     id = symbols->find(*id);
-    decl *d = scope_stack.top()->find(*id);
-    return d->init;
+
+    //Check the scope stack for the variable.
+    for (int i = scope_stack.size(); i >= 0; --i)
+    {
+        decl *d = scope_stack.back()->find(*id);
+        if (d != nullptr)
+            return d->init;
+    }
+    return nullptr;
 }
 
 symbol *parser::identifier()
