@@ -93,6 +93,12 @@ token *lexer::next()
             consume();
             return new token(L_parenth_tok, buffer);
             break;
+        case '{':
+            consume();
+            return new token(L_bracket_tok);
+        case '}':
+            consume();
+            return new token(R_bracket_tok);
         case '+':
             consume();
             return new token(plus_tok, buffer);

@@ -34,7 +34,9 @@ enum token_kind
     id_tok,
     assign_tok,
     semi_col_tok,
-
+    L_bracket_tok,
+    R_bracket_tok,
+    
     //keywords
     true_key,
     false_key,
