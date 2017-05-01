@@ -77,6 +77,13 @@ y && true
 if ()
 else ()
 
+{
+x
+
+}
+
+
+
 #Error handeling test
 (3+4
 (6 * 4 ()
