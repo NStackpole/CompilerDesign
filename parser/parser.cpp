@@ -113,17 +113,16 @@ expr *parser::stmt()
     switch (look_ahead())
     {
     //If the var keyword was lexed then start a new declaration statement
-    case var_key:
-        return declaration_statement()->entity->init;
-    case if_key:
-        return conditional_statement();
     case L_bracket_tok:
         return start_block_statement();
-        break;
     case R_bracket_tok:
         return end_block_statement();
+    case if_key:
+        return conditional_statement();
     case assert_key:
         return assertion_statement();
+    case var_key:
+        return declaration_statement()->entity->init;
 
     //If just an id_tok is found we want to check for an assignment statement
     case id_tok:
@@ -159,8 +158,8 @@ expr *parser::conditional_statement()
     expr *e2 = stmt();
     require(else_key);
     expr *e3 = stmt();
-    
-    return new Conditional_expr(e1, e2,e3) ;
+
+    return new Conditional_expr(e1, e2, e3);
 }
 
 expr *parser::start_block_statement()
@@ -181,9 +180,9 @@ expr *parser::assertion_statement()
 {
     consume();
     require(L_parenth_tok);
-    expr* e = expression();
-    assert(eval(e));
+    expr *e = expression();
     require(R_parenth_tok);
+    assert(eval(e));
     return nullptr;
 }
 
@@ -194,8 +193,8 @@ expr *parser::assignment_expression()
     match(assign_tok);
 
     // If the variable is already in scope, overwrite the decl mapped to the symbol
-    
-    for(int i = scope_stack.size() - 1; i >=0; --i)
+
+    for (int i = scope_stack.size() - 1; i >= 0; --i)
     {
         if (scope_stack[i]->find(*id) != nullptr)
         {
@@ -208,8 +207,6 @@ expr *parser::assignment_expression()
     }
     throw std::string(*id + " not declared");
 }
-
-
 
 decl *parser::declaration()
 {
@@ -472,7 +469,7 @@ expr *parser::id_expression()
     symbol *id = identifier();
     id = symbols->find(*id);
     //Check the scope stack for the variable.
-    for (int i = scope_stack.size() - 1; i >=0; --i)
+    for (int i = scope_stack.size() - 1; i >= 0; --i)
     {
         decl *d = scope_stack[i]->find(*id);
         if (d != nullptr)

@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     token_names[else_key] = "else keyword";
     token_names[L_bracket_tok] = "Left bracket token";
     token_names[R_bracket_tok] = "Right bracket token";
-    token_names[assert_key] = "assert tok";
+    token_names[assert_key] = "assert keyword";
 
     keyword_table *keywords = new keyword_table();
     symbol_table *symbols = new symbol_table();
