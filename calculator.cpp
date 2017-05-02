@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 
         if (line_tokens.size() >= 1)
             calculate(line_tokens, symbols, scopes);
-
+            
         std::cout << "\n";
     }
 }
@@ -64,14 +64,12 @@ int main(int argc, char *argv[])
 //Finds the variables in a line and expression type. Will probably be replaced when the parser is complete.
 //Only works for one expression per line and does not work with conditional expressions.
 //If an expression cannot be evaluated it is simply skipped.
-void calculate(std::vector<token *> &line_tokens, symbol_table *symbols, std::deque<scope *> &scopes)
+void calculate(std::vector<token *> &line_tokens, symbol_table *symbols, std::deque<scope *> &stack)
 {
-    parser p(line_tokens, symbols, scopes);
+    parser p(line_tokens, symbols, stack);
     expr *current_expression = p.parse();
     if (current_expression != nullptr)
         std::cout << "Evaluation: " << eval(current_expression) << "\n";
-    else
-        std::cout << "Expression could not be evaluated.\n";
 }
 
 //Creates a lexer object with the line that was passed in and creates tokens. The name and attribute of each token are then printed out.

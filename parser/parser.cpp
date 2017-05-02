@@ -3,7 +3,7 @@
 #include "parser.hpp"
 #include "../AST/eval.hpp"
 
-parser::parser(std::vector<token *> &tokens, symbol_table *S, std::deque<scope *> scopes) : line(tokens), symbols(S), scope_stack(scopes), index(0) {}
+parser::parser(std::vector<token *> &tokens, symbol_table *S, std::deque<scope *> &scopes) : line(tokens), symbols(S), scope_stack(scopes), index(0) {}
 
 bool parser::end_of_file() const
 {
@@ -13,7 +13,7 @@ bool parser::end_of_file() const
 int parser::look_ahead()
 {
     if (end_of_file())
-        return 0;
+        return -1;
     else
         return line[index]->name;
 }
@@ -118,15 +118,19 @@ expr *parser::stmt()
     case if_key:
         return conditional_statement();
     case L_bracket_tok:
-        return block_statement();
+        return start_block_statement();
+        break;
+    case R_bracket_tok:
+        return end_block_statement();
 
     //If just an id_tok is found we want to check for an assignment statement
     case id_tok:
         //Don't want to comnsume the id_tok in case there isnt an assign_tok ahead
         //so we manually check if there is an assign_tok in the right spot and if so
         // call assignment_expression()
-        if (line[index + 1]->name == assign_tok)
-            return assignment_expression();
+        if (line.size() > 1)
+            if (line[index + 1]->name == assign_tok)
+                return assignment_expression();
     default:
         return expression_statement()->expression;
     }
@@ -146,14 +150,16 @@ expr *parser::conditional_statement()
     return nullptr;
 }
 
-expr *parser::block_statement()
+expr *parser::start_block_statement()
 {
-    scope_stack.push_back(new scope());
     require(L_bracket_tok);
-    expr *e;
-    if (look_ahead() != R_bracket_tok)
-        e = statement_seq();
-    match(R_bracket_tok);
+    scope_stack.push_back(new scope());
+    return nullptr;
+}
+
+expr *parser::end_block_statement()
+{
+    require(R_bracket_tok);
     scope_stack.pop_back();
     return nullptr;
 }
@@ -165,7 +171,8 @@ expr *parser::assignment_expression()
     match(assign_tok);
 
     // If the variable is already in scope, overwrite the decl mapped to the symbol
-    for (int i = scope_stack.size() - 1; i >= 0; --i)
+    
+    for(int i = scope_stack.size() - 1; i >=0; --i)
     {
         if (scope_stack[i]->find(*id) != nullptr)
         {
@@ -451,15 +458,14 @@ expr *parser::id_expression()
 {
     symbol *id = identifier();
     id = symbols->find(*id);
-
     //Check the scope stack for the variable.
-    for (int i = scope_stack.size(); i >= 0; --i)
+    for (int i = scope_stack.size() - 1; i >=0; --i)
     {
-        decl *d = scope_stack.back()->find(*id);
+        decl *d = scope_stack[i]->find(*id);
         if (d != nullptr)
             return d->init;
     }
-    return nullptr;
+    throw std::string(*id + " not declared\n");
 }
 
 symbol *parser::identifier()

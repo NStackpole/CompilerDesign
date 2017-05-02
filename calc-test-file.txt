@@ -63,7 +63,7 @@ x = 6
 x+5
 x = x + 100
 x
-
+j
 j = x
 
 var int j = x;
@@ -79,9 +79,13 @@ else ()
 
 {
 x
+var int Q = 100;
 
+Q - 40
 }
 
+Q
+x
 
 
 #Error handeling test
