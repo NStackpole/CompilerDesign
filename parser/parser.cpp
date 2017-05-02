@@ -138,16 +138,15 @@ expr *parser::stmt()
 
 expr *parser::conditional_statement()
 {
-    //TODO: Figure out how to do this. Maybe create a new type of scope?
     consume();
     require(L_parenth_tok);
-    expr *e = expression();
+    expr *e1 = expression();
     require(R_parenth_tok);
-    //statement *s1 = stmt();
-    match(else_key);
-    //statement *s2 = stmt();
-
-    return nullptr;
+    expr *e2 = stmt();
+    require(else_key);
+    expr *e3 = stmt();
+    
+    return new Conditional_expr(e1, e2,e3) ;
 }
 
 expr *parser::start_block_statement()

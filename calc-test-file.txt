@@ -74,9 +74,6 @@ j-x
 y || true
 y && true
 
-if ()
-else ()
-
 {
 x
 var int Q = 100;
@@ -87,6 +84,12 @@ Q - 40
 Q
 x
 
+x = 100
+j = 20
+
+if (y) x+2 else j+5
+
+if (!y) x+2 else j+5
 
 #Error handeling test
 (3+4
