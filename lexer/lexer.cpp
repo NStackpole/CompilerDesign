@@ -15,6 +15,7 @@ keyword_table::keyword_table()
     insert({"bool", bool_key});
     insert({"if", if_key});
     insert({"else", else_key});
+    insert({"assert", assert_key});
     
 }
 

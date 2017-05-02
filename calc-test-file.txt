@@ -91,6 +91,8 @@ if (y) x+2 else j+5
 
 if (!y) x+2 else j+5
 
+assert(!y)
+
 #Error handeling test
 (3+4
 (6 * 4 ()

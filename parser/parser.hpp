@@ -52,6 +52,7 @@ public:
   expr *conditional_statement();
   expr *start_block_statement();
   expr *end_block_statement();
+  expr *assertion_statement();
 
   decl *declaration();
   decl *variable_declaration();

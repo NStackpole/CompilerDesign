@@ -89,6 +89,7 @@ expr *parser::parse()
     token_names[else_key] = "else keyword";
     token_names[L_bracket_tok] = "{";
     token_names[R_bracket_tok] = "}";
+    token_names[assert_key] = "assert";
 
     try
     {
@@ -114,7 +115,6 @@ expr *parser::stmt()
     //If the var keyword was lexed then start a new declaration statement
     case var_key:
         return declaration_statement()->entity->init;
-
     case if_key:
         return conditional_statement();
     case L_bracket_tok:
@@ -122,6 +122,8 @@ expr *parser::stmt()
         break;
     case R_bracket_tok:
         return end_block_statement();
+    case assert_key:
+        return assertion_statement();
 
     //If just an id_tok is found we want to check for an assignment statement
     case id_tok:
@@ -134,6 +136,18 @@ expr *parser::stmt()
     default:
         return expression_statement()->expression;
     }
+}
+
+decl_statement *parser::declaration_statement()
+{
+    decl *d = declaration();
+    return new decl_statement(d);
+}
+
+expr_statement *parser::expression_statement()
+{
+    expr *e = expression();
+    return new expr_statement(e);
 }
 
 expr *parser::conditional_statement()
@@ -163,6 +177,16 @@ expr *parser::end_block_statement()
     return nullptr;
 }
 
+expr *parser::assertion_statement()
+{
+    consume();
+    require(L_parenth_tok);
+    expr* e = expression();
+    assert(eval(e));
+    require(R_parenth_tok);
+    return nullptr;
+}
+
 expr *parser::assignment_expression()
 {
     symbol *id = identifier();
@@ -185,17 +209,7 @@ expr *parser::assignment_expression()
     throw std::string(*id + " not declared");
 }
 
-decl_statement *parser::declaration_statement()
-{
-    decl *d = declaration();
-    return new decl_statement(d);
-}
 
-expr_statement *parser::expression_statement()
-{
-    expr *e = expression();
-    return new expr_statement(e);
-}
 
 decl *parser::declaration()
 {

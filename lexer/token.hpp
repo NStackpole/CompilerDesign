@@ -36,7 +36,7 @@ enum token_kind
     semi_col_tok,
     L_bracket_tok,
     R_bracket_tok,
-    
+
     //keywords
     true_key,
     false_key,
@@ -44,7 +44,8 @@ enum token_kind
     int_key,
     var_key,
     if_key,
-    else_key
+    else_key,
+    assert_key
 };
 
 struct token
