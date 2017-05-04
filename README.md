@@ -12,6 +12,7 @@ This language currently:
 
 TODO:
 * Implement expression printing
+* Implement code generation (JVM or LLVM)
 
 #### File Descriptions:
 
