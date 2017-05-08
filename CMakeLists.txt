@@ -36,6 +36,7 @@ add_executable(generate_code
   parser/scope.cpp
   parser/statement.cpp
   lexer/token.cpp
+  codegen/llvm/llvm_gen.cpp
   )
 
 set(files AST.cpp test.cpp eval.cpp type_check.cpp lexer.cpp)
